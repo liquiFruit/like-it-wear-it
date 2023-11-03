@@ -8,6 +8,11 @@
     "start": "next start",
     "lint": "next lint"
   },
-  "dependencies": {},
-  "devDependencies": {}
+  "dependencies": {
+    "ui": "workspace:*"
+  },
+  "devDependencies": {
+    "eslint-config-custom": "workspace:*",
+    "tsconfig": "workspace:*"
+  }
 }
