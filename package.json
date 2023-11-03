@@ -1,4 +1,5 @@
 {
+  "name": "like-it-wear-it",
   "private": true,
   "scripts": {
     "build": "turbo run build",
@@ -7,12 +8,24 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "cleanDeps": "rm -rf node_modules apps/*/node_modules packages/*/node_modules && pnpm i"
   },
+  "dependencies": {
+    "react": "^18",
+    "react-dom": "^18",
+    "next": "14.0.1"
+  },
   "devDependencies": {
+    "typescript": "^5",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "autoprefixer": "^10.0.1",
+    "postcss": "^8",
+    "tailwindcss": "^3.3.0",
+    "eslint-config-next": "14.0.1",
     "eslint": "^8.48.0",
     "prettier": "^3.0.3",
     "tsconfig": "workspace:*",
     "turbo": "latest"
   },
-  "packageManager": "pnpm@8.6.10",
-  "name": "like-it-wear-it"
+  "packageManager": "pnpm@8.6.10"
 }
