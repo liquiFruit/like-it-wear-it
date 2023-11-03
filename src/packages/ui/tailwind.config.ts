@@ -1,6 +1,8 @@
+import { join } from "path";
+
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [] as string[],
+  content: [join(__filename, "../src") + "/**/*.tsx"] as string[],
   theme: {
     extend: {
       backgroundImage: {
