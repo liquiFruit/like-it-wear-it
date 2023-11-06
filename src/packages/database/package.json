@@ -1,0 +1,23 @@
+{
+  "name": "database",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "push": "drizzle-kit push:sqlite"
+  },
+  "dependencies": {
+    "@libsql/client": "^0.3.0",
+    "drizzle-orm": "latest",
+    "sqlite3": "^5.1.6",
+    "znv": "^0.3.2",
+    "zod": "^3.21.4"
+  },
+  "devDependencies": {
+    "@types/node": "^18.15.11",
+    "dotenv": "^16.3.1",
+    "drizzle-kit": "0.20.0-13160ca",
+    "drizzle-zod": "latest",
+    "tsx": "^3.12.7",
+    "typescript": "^5.1.6"
+  }
+}
