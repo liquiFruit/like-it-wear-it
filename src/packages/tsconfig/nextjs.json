@@ -19,9 +19,6 @@
     "strict": true,
     "esModuleInterop": true,
     "moduleResolution": "bundler",
-    "isolatedModules": true,
-    "paths": {
-      "@/*": ["./src/*"]
-    }
+    "isolatedModules": true
   }
 }
