@@ -1,1 +1,2 @@
-export { Button } from "@ui/ui/button";
+export * from "./src/ui/button";
+export * from "./src/ui/accordion";
