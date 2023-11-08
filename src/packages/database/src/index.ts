@@ -1,18 +1,11 @@
 import { createClient } from "@libsql/client";
 import { drizzle } from "drizzle-orm/libsql";
-
-import { users } from "./schema";
-import { DATABASE_URL } from "./env";
+import * as schema from "./schema";
+// import { DATABASE_URL } from "./env";
 
 const libsql = createClient({
-  url: DATABASE_URL,
+  url: "file:C:/Users/johnr/Documents/web-dev/like-it-wear-it/src/packages/database/local.db",
 });
-const db = drizzle(libsql);
-
-async function main() {
-  const r = (await db.select().from(users)).length;
-
-  console.log(r);
-}
-
-main();
+export const db = drizzle(libsql, {
+  schema,
+});
