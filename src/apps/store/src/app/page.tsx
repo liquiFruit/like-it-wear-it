@@ -1,11 +1,12 @@
 import { Button } from "ui";
-import { db } from "database";
-import { users } from "database/src/schema";
+import { db, schema } from "database";
 
 export default async function Home() {
-  console.log(await db.select().from(users));
+  const users = await db.select().from(schema.users);
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">
+      <div>{users.at(0)?.email}</div>
       <Button>Click me</Button>
     </main>
   );
