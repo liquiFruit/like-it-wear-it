@@ -1,13 +1,13 @@
-import { Button } from "ui";
-import { db, schema } from "database";
+import { getUsers } from "database";
+import { CreateUserButton } from "src/components/create-user-button";
 
 export default async function Home() {
-  const users = await db.select().from(schema.users);
+  const users = await getUsers();
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">
-      <div>{users.at(0)?.email}</div>
-      <Button>Click me</Button>
+      <div>{JSON.stringify(users)}</div>
+      <CreateUserButton />
     </main>
   );
 }
