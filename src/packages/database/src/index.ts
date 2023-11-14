@@ -1,12 +1,11 @@
-"use server";
-
 import { createClient } from "@libsql/client";
 import { drizzle } from "drizzle-orm/libsql";
 import { DATABASE_URL, DATABASE_AUTH_TOKEN } from "./env";
 import * as schema from "./schema";
 
-// export { schema };
-const db = drizzle(
+export { schema };
+
+export const db = drizzle(
   createClient({
     url: DATABASE_URL,
     authToken: DATABASE_AUTH_TOKEN,
