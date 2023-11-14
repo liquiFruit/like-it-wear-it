@@ -1,9 +1,13 @@
-import { Button } from "ui";
+import { getUsers } from "database";
+import { CreateUserButton } from "src/components/create-user-button";
 
-export default function Home() {
+export default async function Home() {
+  const users = await getUsers();
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">
-      <Button>Click me</Button>
+      <div>{JSON.stringify(users)}</div>
+      <CreateUserButton />
     </main>
   );
 }

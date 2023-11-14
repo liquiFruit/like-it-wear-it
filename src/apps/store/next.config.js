@@ -1,7 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    serverActions: true,
+  },
   reactStrictMode: true,
-  transpilePackages: ["ui"],
+  transpilePackages: ["ui", "database"],
 };
 
 module.exports = nextConfig;

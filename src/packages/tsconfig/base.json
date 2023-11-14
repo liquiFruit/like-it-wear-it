@@ -18,8 +18,7 @@
     "strictNullChecks": true,
 
     "paths": {
-      "@ui/*": ["../../packages/ui/src/*"],
-      "@/*": ["./src/*"]
+      "@ui/*": ["../../packages/ui/src/*"]
     }
   }
 }
