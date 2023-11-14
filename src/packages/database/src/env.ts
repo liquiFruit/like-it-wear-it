@@ -3,14 +3,12 @@ import { config } from "dotenv";
 import { parseEnv } from "znv";
 import { z } from "zod";
 
-const packageRoot = join(new URL(import.meta.url).pathname, "../../").replace(
+const envPath = join(new URL(import.meta.url).pathname, "../../.env").replace(
   /^\\/,
   ""
 );
 
-const { error } = config({
-  path: join(packageRoot, ".env"),
-});
+const { error } = config({ path: envPath });
 
 if (error) throw error;
 
