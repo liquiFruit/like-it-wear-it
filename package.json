@@ -6,7 +6,8 @@
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "cleanDeps": "rm -rf node_modules apps/*/node_modules packages/*/node_modules && pnpm i"
+    "cleanDeps": "rm -rf node_modules src/*/*/node_modules && pnpm i",
+    "ui:add": "pnpm --filter ui add-component"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.0",
