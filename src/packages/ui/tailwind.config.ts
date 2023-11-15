@@ -1,6 +1,6 @@
-import type { Config } from "tailwindcss";
-import { fontFamily } from "tailwindcss/defaultTheme";
-import { join } from "path";
+import type { Config } from "tailwindcss"
+import { fontFamily } from "tailwindcss/defaultTheme"
+import { join } from "path"
 
 const config: Config = {
   content: [join(__filename, "../src") + "/**/*.tsx"],
@@ -74,6 +74,6 @@ const config: Config = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-};
+}
 
-export default config;
+export default config

@@ -1,8 +1,8 @@
-import type { Config } from "tailwindcss";
-import tailwindConfig from "ui/tailwind.config";
+import type { Config } from "tailwindcss"
+import tailwindConfig from "ui/tailwind.config"
 
 const config: Config = {
   ...tailwindConfig,
-  content: tailwindConfig.content.concat(["./src/**/*.tsx"]),
-};
-export default config;
+  content: (tailwindConfig.content as string[]).concat(["./src/**/*.tsx"]),
+}
+export default config
