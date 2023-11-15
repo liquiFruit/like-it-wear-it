@@ -15,10 +15,6 @@
     "preserveWatchOutput": true,
     "skipLibCheck": true,
     "strict": true,
-    "strictNullChecks": true,
-
-    "paths": {
-      "@ui/*": ["../../packages/ui/src/*"]
-    }
+    "strictNullChecks": true
   }
 }
