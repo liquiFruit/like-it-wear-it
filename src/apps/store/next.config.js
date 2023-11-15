@@ -5,6 +5,16 @@ const nextConfig = {
   },
   reactStrictMode: true,
   transpilePackages: ["ui", "database"],
-};
 
-module.exports = nextConfig;
+  // FIXME: use image host instead
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "*.cdninstagram.com",
+      },
+    ],
+  },
+}
+
+module.exports = nextConfig
