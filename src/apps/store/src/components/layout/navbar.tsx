@@ -4,7 +4,7 @@ import { cn } from "ui/src/utils"
 export function Navbar() {
   return (
     <nav className="grid grid-cols-3 p-3">
-      <MenuIcon className="" />
+      <MenuIcon className="self-center" />
 
       <Logo className="" />
 
