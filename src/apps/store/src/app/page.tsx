@@ -1,5 +1,5 @@
-import { Hero } from "src/components/layout/hero"
-import { ProductSection } from "src/components/sections/product-section"
+import { Hero } from "@/components/sections/hero"
+import { ProductSection } from "@/components/sections/product-section"
 
 export default async function Home() {
   return (

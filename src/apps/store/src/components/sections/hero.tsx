@@ -1,5 +1,5 @@
-import Image from "next/image"
 import { Button } from "ui/src/ui/button"
+import Image from "next/image"
 
 export function Hero() {
   return (
@@ -17,9 +17,11 @@ export function Hero() {
         <p className="font-serif text-2xl font-bold">
           Pre-<span className="text-primary">loved</span> Clothes
         </p>
+
         <p className="font-serif text-2xl font-bold">
           at <span className="text-primary">lovable</span> Prices
         </p>
+
         <Button className="mt-4">Explore Collection</Button>
       </div>
     </section>
