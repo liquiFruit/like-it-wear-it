@@ -1,3 +1,5 @@
+import Link from "next/link"
+
 import { ProductCard } from "@/components/products/card"
 
 export function ProductGrid({
@@ -8,7 +10,9 @@ export function ProductGrid({
   return (
     <div className="grid grid-cols-2 gap-3 px-3">
       {products.map((product, idx) => (
-        <ProductCard key={idx} product={product} />
+        <Link href={`/products/${idx}`} key={idx}>
+          <ProductCard product={product} />
+        </Link>
       ))}
     </div>
   )
