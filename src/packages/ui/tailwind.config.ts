@@ -1,6 +1,8 @@
-import type { Config } from "tailwindcss"
-import { fontFamily } from "tailwindcss/defaultTheme"
 import { join } from "path"
+
+import { fontFamily } from "tailwindcss/defaultTheme"
+
+import type { Config } from "tailwindcss"
 
 const config: Config = {
   content: [join(__filename, "../src") + "/**/*.tsx"],
@@ -56,6 +58,8 @@ const config: Config = {
       },
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
+        serif: ["var(--font-serif)", ...fontFamily.serif],
+        hand: ["var(--font-handwriting)"],
       },
       keyframes: {
         "accordion-down": {

@@ -1,4 +1,5 @@
 import type { Config } from "drizzle-kit"
+
 import { DATABASE_AUTH_TOKEN, DATABASE_URL } from "./src/env"
 
 export default {

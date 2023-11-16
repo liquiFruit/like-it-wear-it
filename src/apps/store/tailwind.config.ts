@@ -1,5 +1,6 @@
-import type { Config } from "tailwindcss"
 import tailwindConfig from "ui/tailwind.config"
+
+import type { Config } from "tailwindcss"
 
 const config: Config = {
   ...tailwindConfig,
