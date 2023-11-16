@@ -1,6 +1,7 @@
 import { createClient } from "@libsql/client"
 import { drizzle } from "drizzle-orm/libsql"
-import { DATABASE_URL, DATABASE_AUTH_TOKEN } from "./env"
+
+import { DATABASE_AUTH_TOKEN, DATABASE_URL } from "./env"
 import * as schema from "./schema"
 
 export { schema }

@@ -1,8 +1,10 @@
 "use client"
 
-import { Button } from "ui"
-import { tryCreateUser } from "src/actions"
 import { useRouter } from "next/navigation"
+
+import { Button } from "ui/src/ui/button"
+
+import { tryCreateUser } from "@/actions"
 
 export function CreateUserButton() {
   const router = useRouter()

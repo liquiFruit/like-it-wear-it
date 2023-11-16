@@ -1,5 +1,5 @@
-import { cn } from "ui/src/utils"
 import { MenuIcon, SearchIcon, ShoppingBagIcon } from "ui/src/icons"
+import { cn } from "ui/src/utils"
 
 export function Navbar() {
   return (

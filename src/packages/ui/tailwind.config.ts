@@ -1,6 +1,8 @@
-import type { Config } from "tailwindcss"
-import { fontFamily } from "tailwindcss/defaultTheme"
 import { join } from "path"
+
+import { fontFamily } from "tailwindcss/defaultTheme"
+
+import type { Config } from "tailwindcss"
 
 const config: Config = {
   content: [join(__filename, "../src") + "/**/*.tsx"],

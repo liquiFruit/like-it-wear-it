@@ -1,17 +1,21 @@
 {
   "semi": false,
+
   "plugins": [
     "@ianvs/prettier-plugin-sort-imports",
     "prettier-plugin-tailwindcss"
   ],
   "tailwindFunctions": [""],
   "importOrder": [
-    "^next/(.*)$",
-    "^react$",
+    "^next($|/.*)$",
+    "^react($|/.*)$",
     "",
     "<THIRD_PARTY_MODULES>",
     "",
-    "^.(.)/(.*)$"
-  ],
-  "importOrderSeparation": true
+    "^@/.*$",
+    "",
+    "^[.]",
+    "",
+    ".css$"
+  ]
 }
