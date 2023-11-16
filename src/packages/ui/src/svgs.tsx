@@ -1,4 +1,6 @@
-export function Squiggle() {
+import { cn } from "./utils"
+
+export function Squiggle({ className }: { className?: string }) {
   return (
     <svg
       width="228"
@@ -6,7 +8,7 @@ export function Squiggle() {
       viewBox="0 0 228 114"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="stroke-accent"
+      className={cn("stroke-accent", className)}
     >
       <path
         opacity="0.8"
