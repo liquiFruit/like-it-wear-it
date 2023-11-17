@@ -1,6 +1,7 @@
 import { sql } from "drizzle-orm"
-import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core"
+import { blob, integer, sqliteTable, text } from "drizzle-orm/sqlite-core"
 import { createInsertSchema, createSelectSchema } from "drizzle-zod"
+import { z } from "zod"
 
 export const table = sqliteTable("products", {
   id: integer("id").primaryKey(),
@@ -13,10 +14,16 @@ export const table = sqliteTable("products", {
 
   price: integer("price_in_cents").notNull(),
   stock: integer("stock_quantity").notNull().default(1),
+
+  images: blob("images", { mode: "json" }).notNull().$type<string[]>(),
 })
 
-export const insertSchema = createInsertSchema(table)
+export const insertSchema = createInsertSchema(table).extend({
+  images: z
+    .array(z.string())
+    .min(1, { message: "Requires at least one image." }),
+})
 export const selectSchema = createSelectSchema(table)
 
-export type Insert = typeof insertSchema._type
-export type Select = typeof selectSchema._type
+export type Insert = z.infer<typeof insertSchema>
+export type Select = z.infer<typeof selectSchema>
