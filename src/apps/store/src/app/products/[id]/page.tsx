@@ -13,7 +13,7 @@ export default function ProductDetailPage({
     <div>
       <Carousel>
         {images.map((_, idx) => (
-          <Slide key={idx} className="w-[80vw] border p-3 shadow">
+          <Slide key={idx} className="mb-6 w-[80vw] border p-3 shadow-lg">
             <div className="relative aspect-square">
               <Image
                 draggable={false}
