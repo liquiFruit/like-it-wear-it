@@ -2,7 +2,13 @@
 
 import { cn } from "../utils"
 
-export function Carousel({ children }: { children: React.ReactNode[] }) {
+export function Carousel({
+  children,
+  className,
+}: {
+  children: React.ReactNode[]
+  className: string
+}) {
   function scrollToNextSlide(slider: HTMLElement, mouseX: number) {
     const clientWidth = slider.clientWidth
     const scrollWidth = slider.scrollWidth
@@ -30,7 +36,7 @@ export function Carousel({ children }: { children: React.ReactNode[] }) {
       onMouseDown={(e) => scrollToNextSlide(e.currentTarget, e.clientX)}
       className="no-scrollbar snap-x snap-mandatory overflow-x-scroll"
     >
-      <div className="flex w-fit flex-row gap-4 px-4">{children}</div>
+      <div className={cn("flex w-fit flex-row", className)}>{children}</div>
     </div>
   )
 }

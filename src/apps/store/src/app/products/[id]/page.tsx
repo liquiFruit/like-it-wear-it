@@ -11,7 +11,7 @@ export default function ProductDetailPage({
 
   return (
     <div>
-      <Carousel>
+      <Carousel className="gap-3 px-3">
         {images.map((_, idx) => (
           <Slide key={idx} className="mb-6 w-[80vw] border p-3 shadow-lg">
             <div className="relative aspect-square">
