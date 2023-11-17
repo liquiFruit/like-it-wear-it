@@ -1,19 +1,19 @@
 import Image from "next/image"
 
-import { Carousel } from "ui/src/components/carousel"
+import { Carousel, Slide } from "ui/src/components/carousel"
 
 export default function ProductDetailPage({
   params: { id },
 }: {
   params: { id: string }
 }) {
-  const images = [0, 1, 2, 3]
+  const images = Array(3).fill(0)
 
   return (
     <div>
       <Carousel>
-        {images.map((idx) => (
-          <div key={idx} className="w-[80vw] snap-center border p-3 shadow">
+        {images.map((_, idx) => (
+          <Slide key={idx} className="w-[80vw] border p-3 shadow">
             <div className="relative aspect-square">
               <Image
                 draggable={false}
@@ -25,7 +25,7 @@ export default function ProductDetailPage({
             </div>
 
             <div className="h-20" />
-          </div>
+          </Slide>
         ))}
       </Carousel>
     </div>
