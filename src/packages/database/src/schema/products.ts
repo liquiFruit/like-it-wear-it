@@ -9,7 +9,7 @@ export const table = sqliteTable("products", {
     .default(sql`(strftime('%s', 'now'))`),
 
   name: text("name").notNull(),
-  description: text("name").notNull(),
+  description: text("description").notNull(),
 
   price: integer("price_in_cents").notNull(),
   stock: integer("stock_quantity").notNull().default(1),
