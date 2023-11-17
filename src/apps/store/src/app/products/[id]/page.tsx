@@ -1,6 +1,8 @@
 import Image from "next/image"
 
 import { Carousel, Slide } from "ui/src/components/carousel"
+import { Heart } from "ui/src/svgs"
+import { Button } from "ui/src/ui/button"
 
 export default function ProductDetailPage({
   params: { id },
@@ -28,6 +30,29 @@ export default function ProductDetailPage({
           </Slide>
         ))}
       </Carousel>
+
+      <div className="px-3">
+        <div className="flex flex-row items-center justify-between">
+          <h1 className="font-serif text-2xl font-semibold">Summer Dress</h1>
+          <Heart />
+        </div>
+
+        <p className="my-2 text-xs font-light">
+          Midi wrap dress
+          <br />
+          Bought from H&M in 2018
+          <br />
+          Lightly worn
+          <br />
+          Size: S/M
+          <br />
+          Colour: Cream with floral detailing
+        </p>
+
+        <Button size={"sm"} className="w-full">
+          Add to Cart
+        </Button>
+      </div>
     </div>
   )
 }
