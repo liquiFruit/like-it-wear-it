@@ -7,16 +7,20 @@ import { cn } from "../utils"
 export function Carousel({ children }: { children: React.ReactNode[] }) {
   const slider = useRef<HTMLDivElement | null>(null)
 
-  function scrollToNextSlide() {
+  function scrollToNextSlide(mouseX: number) {
     const clientWidth = slider.current!.clientWidth
     const scrollWidth = slider.current!.scrollWidth
     const slideWidth = scrollWidth / children.length
     const currentScroll = slider.current!.scrollLeft
 
-    var nextPos = currentScroll + slideWidth
+    const dir = mouseX > clientWidth / 3 ? "next" : "prev"
 
-    if (scrollWidth - currentScroll - clientWidth === 0) {
+    var nextPos = currentScroll + slideWidth * (dir === "prev" ? -1 : 1)
+
+    if (dir === "next" && scrollWidth - currentScroll - clientWidth === 0) {
       nextPos = 0
+    } else if (dir === "prev" && currentScroll === 0) {
+      nextPos = scrollWidth
     }
 
     slider.current!.scrollTo({
@@ -28,12 +32,10 @@ export function Carousel({ children }: { children: React.ReactNode[] }) {
   return (
     <div
       ref={slider}
-      onMouseDown={scrollToNextSlide}
+      onMouseDown={(e) => scrollToNextSlide(e.clientX)}
       className="no-scrollbar snap-x snap-mandatory overflow-x-scroll"
     >
-      <div className="flex w-fit flex-row gap-4 px-4" draggable={false}>
-        {children}
-      </div>
+      <div className="flex w-fit flex-row gap-4 px-4">{children}</div>
     </div>
   )
 }
