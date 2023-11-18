@@ -34,7 +34,7 @@ export function Carousel({
   return (
     <div
       onMouseDown={(e) => scrollToNextSlide(e.currentTarget, e.clientX)}
-      className="no-scrollbar snap-x snap-mandatory overflow-x-scroll"
+      className="no-scrollbar max-w-100% mx-auto  snap-x snap-mandatory overflow-x-scroll"
     >
       <div className={cn("flex w-fit flex-row", className)}>{children}</div>
     </div>

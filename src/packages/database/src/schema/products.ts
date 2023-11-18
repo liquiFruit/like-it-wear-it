@@ -3,7 +3,7 @@ import { blob, integer, sqliteTable, text } from "drizzle-orm/sqlite-core"
 import { createInsertSchema, createSelectSchema } from "drizzle-zod"
 import { z } from "zod"
 
-export const table = sqliteTable("products", {
+export const products = sqliteTable("products", {
   id: integer("id").primaryKey(),
   createdAt: integer("created_at", { mode: "timestamp" })
     .notNull()
@@ -18,12 +18,14 @@ export const table = sqliteTable("products", {
   images: blob("images", { mode: "json" }).notNull().$type<string[]>(),
 })
 
-export const insertSchema = createInsertSchema(table).extend({
+export const insertSchema = createInsertSchema(products).extend({
   images: z
     .array(z.string())
     .min(1, { message: "Requires at least one image." }),
 })
-export const selectSchema = createSelectSchema(table)
+export const selectSchema = createSelectSchema(products).extend({
+  images: z.array(z.string()).min(1),
+})
 
 export type Insert = z.infer<typeof insertSchema>
 export type Select = z.infer<typeof selectSchema>

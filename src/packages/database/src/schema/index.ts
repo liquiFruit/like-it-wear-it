@@ -1,1 +1,2 @@
-export * as products from "./products"
+export * as Products from "./products"
+export * as Categories from "./categories"
