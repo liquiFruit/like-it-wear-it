@@ -7,7 +7,9 @@
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "cleanDeps": "rm -rf node_modules src/*/*/node_modules && pnpm i",
-    "ui:add": "pnpm --filter ui add-component"
+    "ui:add": "pnpm --filter ui add-component",
+    "db:push": "pnpm --filter database push",
+    "db:view": "pnpm --filter database studio"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.0",

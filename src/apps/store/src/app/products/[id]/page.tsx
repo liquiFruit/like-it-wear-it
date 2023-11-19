@@ -1,53 +1,62 @@
 import Image from "next/image"
 
+import { getProductById } from "database/src/api/products/queries"
 import { Carousel, Slide } from "ui/src/components/carousel"
 import { Heart } from "ui/src/svgs"
 import { Button } from "ui/src/ui/button"
 
-export default function ProductDetailPage({
+export default async function ProductDetailPage({
   params: { id },
 }: {
-  params: { id: string }
+  params: { id: number }
 }) {
-  const images = Array(3).fill(0)
+  const [product] = await getProductById(id)
+
+  if (!product) return <p className="text-center">Product not found!</p>
 
   return (
     <div>
-      <Carousel className="gap-3 px-3">
-        {images.map((_, idx) => (
-          <Slide key={idx} className="mb-6 w-[80vw] border p-3 shadow-lg">
-            <div className="relative aspect-square">
-              <Image
-                draggable={false}
-                src="https://scontent-cpt1-1.cdninstagram.com/v/t39.30808-6/387744423_18072691153415502_637200600293141596_n.jpg?stp=dst-jpg_e35_p640x640_sh0.08&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi4xNDQweDE3MTUuc2RyIn0&_nc_ht=scontent-cpt1-1.cdninstagram.com&_nc_cat=106&_nc_ohc=7HpEbDijVpkAX8SGlaL&edm=ACWDqb8AAAAA&ccb=7-5&ig_cache_key=MzIwOTIxNDExMjkyNzM4MTU2MQ%3D%3D.2-ccb7-5&oh=00_AfBn_Uultu1WkGqHMlxCJ79Nov3vqbzC_V0i89YyrLfXYQ&oe=655991A8&_nc_sid=ee9879"
-                alt=""
-                fill
-                className="select-none object-cover"
-              />
-            </div>
+      {product.images.length !== 1 ? (
+        <Carousel className="gap-3 px-3">
+          {product.images.map((img) => (
+            <Slide key={img} className="mb-6 w-[80vw] border p-3 shadow-lg">
+              <div className="relative aspect-square">
+                <Image
+                  draggable={false}
+                  src={img}
+                  alt=""
+                  fill
+                  className="select-none object-cover"
+                />
+              </div>
 
-            <div className="h-20" />
-          </Slide>
-        ))}
-      </Carousel>
+              <div className="h-20" />
+            </Slide>
+          ))}
+        </Carousel>
+      ) : (
+        <div className="mx-auto mb-6 w-[80vw] border p-3 shadow-lg">
+          <div className="relative aspect-square">
+            <Image
+              draggable={false}
+              src={product.images[0]}
+              alt=""
+              fill
+              className="select-none object-cover"
+            />
+          </div>
+
+          <div className="h-20" />
+        </div>
+      )}
 
       <div className="px-3">
         <div className="flex flex-row items-center justify-between">
-          <h1 className="font-serif text-2xl font-semibold">Summer Dress</h1>
+          <h1 className="font-serif text-2xl font-semibold">{product.name}</h1>
           <Heart />
         </div>
 
-        <p className="my-2 text-xs font-light">
-          Midi wrap dress
-          <br />
-          Bought from H&M in 2018
-          <br />
-          Lightly worn
-          <br />
-          Size: S/M
-          <br />
-          Colour: Cream with floral detailing
-        </p>
+        <p className="my-2 text-xs font-light">{product.description}</p>
 
         <Button size={"sm"} className="w-full">
           Add to Cart

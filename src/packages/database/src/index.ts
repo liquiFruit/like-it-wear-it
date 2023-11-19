@@ -1,10 +1,11 @@
 import { createClient } from "@libsql/client"
+import { and, eq, or } from "drizzle-orm"
 import { drizzle } from "drizzle-orm/libsql"
 
 import { DATABASE_AUTH_TOKEN, DATABASE_URL } from "./env"
-import * as schema from "./schema"
-
-export { schema }
+import { categories } from "./schema/categories"
+import { productsCategories } from "./schema/product-category"
+import { products } from "./schema/products"
 
 export const db = drizzle(
   createClient({
@@ -12,18 +13,13 @@ export const db = drizzle(
     authToken: DATABASE_AUTH_TOKEN,
   }),
   {
-    schema,
+    logger: true,
+    schema: {
+      products,
+      categories,
+      productsCategories,
+    },
   },
 )
 
-export async function createUser(email: string, name: string): Promise<string> {
-  return JSON.stringify(
-    (await db.insert(schema.users).values({ email, name })).toJSON(),
-  )
-}
-
-export async function getUsers(): Promise<
-  (typeof schema.selectUserSchema._type)[]
-> {
-  return db.select().from(schema.users)
-}
+export * as schema from "./schema"
