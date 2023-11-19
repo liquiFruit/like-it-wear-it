@@ -1,6 +1,6 @@
 import Image from "next/image"
 
-import { db, opperators, schema } from "database"
+import { getProductById } from "database/src/api/products/queries"
 import { Carousel, Slide } from "ui/src/components/carousel"
 import { Heart } from "ui/src/svgs"
 import { Button } from "ui/src/ui/button"
@@ -10,11 +10,7 @@ export default async function ProductDetailPage({
 }: {
   params: { id: number }
 }) {
-  const [product] = await db
-    .select()
-    .from(schema.Products.products)
-    .where(opperators.eq(schema.Products.products.id, id))
-    .limit(1)
+  const [product] = await getProductById(id)
 
   if (!product) return <p className="text-center">Product not found!</p>
 

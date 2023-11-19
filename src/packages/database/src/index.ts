@@ -3,17 +3,23 @@ import { and, eq, or } from "drizzle-orm"
 import { drizzle } from "drizzle-orm/libsql"
 
 import { DATABASE_AUTH_TOKEN, DATABASE_URL } from "./env"
+import { categories } from "./schema/categories"
+import { productsCategories } from "./schema/product-category"
+import { products } from "./schema/products"
 
 export const db = drizzle(
   createClient({
     url: DATABASE_URL,
     authToken: DATABASE_AUTH_TOKEN,
   }),
+  {
+    logger: true,
+    schema: {
+      products,
+      categories,
+      productsCategories,
+    },
+  },
 )
 
 export * as schema from "./schema"
-export const opperators = {
-  eq,
-  and,
-  or,
-}

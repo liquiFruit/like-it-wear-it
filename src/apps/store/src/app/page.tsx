@@ -1,11 +1,11 @@
-import { db, schema } from "database"
+import { getAllProductsInStock } from "database/src/api/products/queries"
 import { Squiggle } from "ui/src/svgs"
 
 import { Hero } from "@/components/layout/hero"
 import { ProductGrid } from "@/components/products/grid"
 
 export default async function Home() {
-  const products = await db.select().from(schema.Products.products)
+  const products = await getAllProductsInStock()
 
   return (
     <main>
