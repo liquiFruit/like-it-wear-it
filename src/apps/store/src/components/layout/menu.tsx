@@ -11,6 +11,9 @@ import {
   SheetTrigger,
 } from "ui/src/ui/sheet"
 
+import { AuthButton } from "./auth-button"
+import { Logo } from "./logo"
+
 export function Menu() {
   return (
     <Sheet>
@@ -20,7 +23,12 @@ export function Menu() {
         </Button>
       </SheetTrigger>
 
-      <SheetContent side={"left"}></SheetContent>
+      <SheetContent side={"left"}>
+        <SheetHeader>
+          <Logo className="mb-8" />
+        </SheetHeader>
+        <AuthButton className="w-full" />
+      </SheetContent>
     </Sheet>
   )
 }

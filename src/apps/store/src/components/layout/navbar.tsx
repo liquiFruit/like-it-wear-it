@@ -18,16 +18,10 @@ export async function Navbar() {
 
       <Logo className="" />
 
-      {session?.user ? (
-        <div className="ml-auto flex w-fit flex-row items-center gap-1">
-          <SearchIcon />
-          <Cart items={session?.user ? 1 : 0} />
-        </div>
-      ) : (
-        <Button variant={"link"} asChild>
-          <Link href={"/api/auth/signin"}>Sign in</Link>
-        </Button>
-      )}
+      <div className="ml-auto flex w-fit flex-row items-center gap-1">
+        <SearchIcon />
+        <Cart items={session?.user ? 1 : 0} />
+      </div>
     </nav>
   )
 }
