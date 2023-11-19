@@ -1,4 +1,8 @@
+import Link from "next/link"
+
+import { signIn } from "next-auth/react"
 import { MenuIcon, SearchIcon } from "ui/src/icons"
+import { Button } from "ui/src/ui/button"
 
 import { getUserAuth } from "@/lib/auth"
 
@@ -14,10 +18,16 @@ export async function Navbar() {
 
       <Logo className="" />
 
-      <div className="ml-auto flex w-fit flex-row items-center gap-1">
-        <SearchIcon />
-        <Cart items={session?.user ? 1 : 0} />
-      </div>
+      {session?.user ? (
+        <div className="ml-auto flex w-fit flex-row items-center gap-1">
+          <SearchIcon />
+          <Cart items={session?.user ? 1 : 0} />
+        </div>
+      ) : (
+        <Button variant={"link"} asChild>
+          <Link href={"/api/auth/signin"}>Sign in</Link>
+        </Button>
+      )}
     </nav>
   )
 }
