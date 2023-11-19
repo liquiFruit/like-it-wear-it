@@ -12,6 +12,8 @@
     "db:view": "pnpm --filter database studio"
   },
   "dependencies": {
+    "@auth/core": "^0.18.1",
+    "@auth/drizzle-adapter": "^0.3.6",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "lucide-react": "^0.292.0",

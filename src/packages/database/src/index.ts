@@ -1,5 +1,4 @@
 import { createClient } from "@libsql/client"
-import { and, eq, or } from "drizzle-orm"
 import { drizzle } from "drizzle-orm/libsql"
 
 import { DATABASE_AUTH_TOKEN, DATABASE_URL } from "./env"
@@ -23,3 +22,4 @@ export const db = drizzle(
 )
 
 export * as schema from "./schema"
+export { and, eq, or } from "drizzle-orm"
