@@ -4,6 +4,8 @@ import { Navbar } from "@/components/layout/navbar"
 
 import "./globals.css"
 
+import Providers from "./providers"
+
 export const metadata: Metadata = {
   title: "Like It, Wear It",
 }
@@ -16,8 +18,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Navbar />
-        {children}
+        <Providers>
+          <Navbar />
+          {children}
+        </Providers>
       </body>
     </html>
   )
