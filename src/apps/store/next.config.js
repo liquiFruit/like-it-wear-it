@@ -1,8 +1,7 @@
+// TODO: refactor this between store and admin
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    serverActions: true,
-  },
   reactStrictMode: true,
   transpilePackages: ["ui", "database"],
 
