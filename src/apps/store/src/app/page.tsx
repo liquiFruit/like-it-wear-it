@@ -3,13 +3,14 @@ import { Squiggle } from "ui/src/svgs"
 
 import { Hero } from "@/components/layout/hero"
 import { ProductGrid } from "@/components/products/grid"
+import { TRPCCaller } from "@/components/trpc-caller"
 
 export default async function Home() {
   const products = await getAllProductsInStock()
 
   return (
     <main>
-      <Hero />
+      {/* <Hero />
 
       <section>
         <h2 className="relative my-12 text-center font-serif text-xl font-black">
@@ -18,7 +19,9 @@ export default async function Home() {
         </h2>
 
         <ProductGrid products={products} />
-      </section>
+      </section> */}
+
+      <TRPCCaller />
     </main>
   )
 }
