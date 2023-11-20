@@ -1,16 +1,17 @@
 import Image from "next/image"
 
-import { getProductById } from "database/src/api/products/queries"
 import { Carousel, Slide } from "ui/src/components/carousel"
 import { Heart } from "ui/src/svgs"
 import { Button } from "ui/src/ui/button"
+
+import { serverClient } from "@/lib/trpc/server-client"
 
 export default async function ProductDetailPage({
   params: { id },
 }: {
   params: { id: number }
 }) {
-  const [product] = await getProductById(id)
+  const product = await serverClient.getProductById(+id)
 
   if (!product) return <p className="text-center">Product not found!</p>
 

@@ -1,16 +1,16 @@
-import { getAllProductsInStock } from "database/src/api/products/queries"
 import { Squiggle } from "ui/src/svgs"
 
 import { Hero } from "@/components/layout/hero"
 import { ProductGrid } from "@/components/products/grid"
-import { TRPCServerCaller } from "@/components/trpc-server-caller"
+import { serverClient } from "@/lib/trpc/server-client"
 
 export default async function Home() {
-  const products = await getAllProductsInStock()
+  const products = await serverClient.getAllProductsInStock()
 
   return (
     <main>
-      {/* <Hero />
+      {/* @ts-expect-error: server component */}
+      <Hero />
 
       <section>
         <h2 className="relative my-12 text-center font-serif text-xl font-black">
@@ -19,10 +19,7 @@ export default async function Home() {
         </h2>
 
         <ProductGrid products={products} />
-      </section> */}
-
-      {/* @ts-expect-error Server component */}
-      <TRPCServerCaller />
+      </section>
     </main>
   )
 }
