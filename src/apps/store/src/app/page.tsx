@@ -3,7 +3,7 @@ import { Squiggle } from "ui/src/svgs"
 
 import { Hero } from "@/components/layout/hero"
 import { ProductGrid } from "@/components/products/grid"
-import { TRPCCaller } from "@/components/trpc-caller"
+import { TRPCServerCaller } from "@/components/trpc-server-caller"
 
 export default async function Home() {
   const products = await getAllProductsInStock()
@@ -21,7 +21,8 @@ export default async function Home() {
         <ProductGrid products={products} />
       </section> */}
 
-      <TRPCCaller />
+      {/* @ts-expect-error Server component */}
+      <TRPCServerCaller />
     </main>
   )
 }
