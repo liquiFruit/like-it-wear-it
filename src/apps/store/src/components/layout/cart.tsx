@@ -15,16 +15,11 @@ import {
   SheetTrigger,
 } from "ui/src/ui/sheet"
 
-import { trpc } from "@/lib/trpc/client"
+import { useCart } from "@/lib/hooks/useCart"
 
 export function Cart() {
   const [isOpen, setIsOpen] = useState(false)
-  const {
-    data: products,
-    isLoading,
-    isError,
-    error,
-  } = trpc.getCartProductsByUserId.useQuery()
+  const { data: products, isLoading, isError, error } = useCart()
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
