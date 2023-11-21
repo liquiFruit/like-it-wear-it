@@ -23,6 +23,7 @@ export function Cart() {
     data: products,
     isLoading,
     isError,
+    error,
   } = trpc.getCartProductsByUserId.useQuery()
 
   return (
@@ -47,9 +48,16 @@ export function Cart() {
         {isLoading ? (
           <LoadingSpinner className="mx-auto" />
         ) : isError || !products ? (
-          <p className="text-center">
-            An error occurred while loading your cart.
-          </p>
+          <>
+            <p className="text-center">
+              An error occurred while loading your cart.
+            </p>
+            <p className="text-destructive mt-6 text-center">
+              {error?.data?.code === "UNAUTHORIZED"
+                ? "You need to login first"
+                : error?.message}
+            </p>
+          </>
         ) : products.length === 0 ? (
           <p className="self-center text-center text-black/70">
             Your cart is empty.
