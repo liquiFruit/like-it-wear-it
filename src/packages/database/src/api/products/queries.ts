@@ -19,5 +19,5 @@ const byId = db
   .prepare()
 
 export async function getProductById(id: number) {
-  return await byId.execute({ id })
+  return (await byId.execute({ id })).at(0)
 }

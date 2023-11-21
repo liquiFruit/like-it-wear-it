@@ -1,14 +1,15 @@
-import { getAllProductsInStock } from "database/src/api/products/queries"
 import { Squiggle } from "ui/src/svgs"
 
 import { Hero } from "@/components/layout/hero"
 import { ProductGrid } from "@/components/products/grid"
+import { serverClient } from "@/lib/trpc/server-client"
 
 export default async function Home() {
-  const products = await getAllProductsInStock()
+  const products = await serverClient.getAllProductsInStock()
 
   return (
     <main>
+      {/* @ts-expect-error: server component */}
       <Hero />
 
       <section>

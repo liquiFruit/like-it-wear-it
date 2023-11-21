@@ -9,8 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "ui": "workspace:*",
-    "database": "workspace:*"
+    "@tanstack/react-query": "^5",
+    "@trpc/client": "next",
+    "@trpc/next": "next",
+    "@trpc/react-query": "next",
+    "@trpc/server": "next",
+    "database": "workspace:*",
+    "ui": "workspace:*"
   },
   "devDependencies": {
     "eslint-config-custom": "workspace:*",
