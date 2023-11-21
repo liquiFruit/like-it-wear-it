@@ -8,7 +8,7 @@ export function Navbar() {
     <nav className="bg-background/30 sticky top-0 z-10 grid grid-cols-3 p-3 backdrop-blur">
       <Menu />
 
-      <Logo className="" />
+      <Logo className="mx-auto" />
 
       <div className="ml-auto flex w-fit flex-row items-center gap-1">
         <Search />
