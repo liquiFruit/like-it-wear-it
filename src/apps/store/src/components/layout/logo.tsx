@@ -7,8 +7,8 @@ export function Logo({ className }: { className: string }) {
     <Link
       href={"/"}
       className={cn(
+        "flex h-fit w-fit flex-col items-center font-serif leading-none",
         className,
-        "flex flex-col items-center font-serif leading-none",
       )}
     >
       <span>Like It</span>

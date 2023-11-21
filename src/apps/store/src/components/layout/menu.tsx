@@ -18,14 +18,18 @@ export function Menu() {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant={"link"} className="text-black" size={"icon"}>
-          <MenuIcon className="self-center" />
+        <Button
+          variant={"link"}
+          className="w-6 self-center text-black"
+          size={"icon"}
+        >
+          <MenuIcon className="" />
         </Button>
       </SheetTrigger>
 
       <SheetContent side={"left"}>
         <SheetHeader>
-          <Logo className="mb-8" />
+          <Logo className="mx-auto mb-8" />
         </SheetHeader>
         <AuthButton className="w-full" />
       </SheetContent>
