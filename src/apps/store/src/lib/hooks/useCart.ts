@@ -9,6 +9,8 @@ export function useCart() {
     trpc.getCartProductsByUserId.useQuery()
 
   const { mutateAsync: tryAddToCart } = trpc.addProductToCart.useMutation()
+  const { mutateAsync: tryRemoveFromCart } =
+    trpc.removeProductFromCart.useMutation()
 
   const { getData, setData } = trpc.useUtils().getCartProductsByUserId
 
@@ -29,5 +31,22 @@ export function useCart() {
     })
   }
 
-  return { data, isLoading, isError, error, addToCart }
+  async function removeFromCart(product: Product) {
+    const initialProducts = getData() ?? []
+    const updatedProducts = initialProducts.filter((p) => p.id !== product.id)
+
+    // Optimistic update
+    setData(undefined, updatedProducts)
+
+    // Actual update
+    tryRemoveFromCart(product.id, {
+      onError(error) {
+        alert("An error occurred removing product from cart")
+        console.log(error)
+        refetch()
+      },
+    })
+  }
+
+  return { data, isLoading, isError, error, addToCart, removeFromCart }
 }

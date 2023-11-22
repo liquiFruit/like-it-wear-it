@@ -1,4 +1,7 @@
-import { addProductToCart } from "database/src/api/cart/mutations"
+import {
+  addProductToCart,
+  removeProductFromCart,
+} from "database/src/api/cart/mutations"
 import { getCartProductsByUserId } from "database/src/api/cart/queries"
 import {
   getAllProductsInStock,
@@ -23,7 +26,12 @@ export const appRouter = router({
     .input(z.number())
     .mutation(async ({ ctx, input }) => {
       await addProductToCart(ctx.session.user.id, input)
-      return { success: true }
+    }),
+
+  removeProductFromCart: protectedProcedure
+    .input(z.number())
+    .mutation(async ({ ctx, input }) => {
+      await removeProductFromCart(ctx.session.user.id, input)
     }),
 })
 
