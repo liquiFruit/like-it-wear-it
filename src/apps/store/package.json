@@ -15,6 +15,7 @@
     "@trpc/react-query": "next",
     "@trpc/server": "next",
     "database": "workspace:*",
+    "superjson": "^2.2.1",
     "ui": "workspace:*"
   },
   "devDependencies": {

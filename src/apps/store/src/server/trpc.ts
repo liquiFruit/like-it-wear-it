@@ -1,8 +1,11 @@
 import { initTRPC, TRPCError } from "@trpc/server"
+import superjson from "superjson"
 
 import { getUserAuth } from "@/lib/auth"
 
-const t = initTRPC.create()
+const t = initTRPC.create({
+  transformer: superjson,
+})
 
 const isAuth = t.middleware(async ({ next }) => {
   const session = await getUserAuth()
