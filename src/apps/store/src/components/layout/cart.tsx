@@ -19,13 +19,7 @@ import { useCart } from "@/lib/hooks/useCart"
 
 export function Cart() {
   const [isOpen, setIsOpen] = useState(false)
-  const {
-    data: products,
-    isLoading,
-    isError,
-    error,
-    removeFromCart,
-  } = useCart()
+  const { products, isLoading, isError, error, removeFromCart } = useCart()
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>

@@ -48,5 +48,12 @@ export function useCart() {
     })
   }
 
-  return { data, isLoading, isError, error, addToCart, removeFromCart }
+  return {
+    products: data,
+    isLoading,
+    isError,
+    error,
+    addToCart,
+    removeFromCart,
+  }
 }
