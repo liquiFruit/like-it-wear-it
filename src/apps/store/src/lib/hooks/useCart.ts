@@ -1,7 +1,5 @@
 "use client"
 
-import { useEffect } from "react"
-
 import { Select as Product } from "database/src/schema/products"
 
 import { trpc } from "@/lib/trpc/client"
@@ -10,22 +8,26 @@ export function useCart() {
   const { data, isLoading, isError, error, refetch } =
     trpc.getCartProductsByUserId.useQuery()
 
+  const { mutateAsync: tryAddToCart } = trpc.addProductToCart.useMutation()
+
   const { getData, setData } = trpc.useUtils().getCartProductsByUserId
 
-  useEffect(() => {
-    if (!isError || error.data?.code !== "UNAUTHORIZED") return
+  async function addToCart(product: Product) {
+    const initialProducts = getData() ?? []
+    const updatedProducts = initialProducts.concat([product])
 
-    const localProducts = JSON.parse(
-      localStorage.getItem("local_cart_products") ?? "[]",
-    ) as Product[]
+    // Optimistic update
+    setData(undefined, updatedProducts)
 
-    setData(
-      undefined,
-      localProducts.map((p) => ({ ...p, createdAt: p.createdAt.toString() })),
-    )
+    // Actual update
+    tryAddToCart(product.id, {
+      onError(error) {
+        alert("An error occurred adding product to cart")
+        console.log(error)
+        refetch()
+      },
+    })
+  }
 
-    console.log("setData")
-  }, [isError, error, data])
-
-  return { data, isLoading, isError, error }
+  return { data, isLoading, isError, error, addToCart }
 }
