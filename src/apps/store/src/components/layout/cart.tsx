@@ -19,7 +19,13 @@ import { useCart } from "@/lib/hooks/useCart"
 
 export function Cart() {
   const [isOpen, setIsOpen] = useState(false)
-  const { data: products, isLoading, isError, error } = useCart()
+  const {
+    data: products,
+    isLoading,
+    isError,
+    error,
+    removeFromCart,
+  } = useCart()
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -61,6 +67,7 @@ export function Cart() {
           <CartProducts
             closeSheet={() => setIsOpen(false)}
             products={products}
+            removeFromCart={removeFromCart}
           />
         )}
       </SheetContent>
@@ -71,9 +78,11 @@ export function Cart() {
 function CartProducts({
   products,
   closeSheet,
+  removeFromCart,
 }: {
   products: Product[]
   closeSheet: () => void
+  removeFromCart: (product: Product) => Promise<void>
 }) {
   return (
     <section>
@@ -82,7 +91,7 @@ function CartProducts({
           <div key={p.id} className="flex flex-row">
             <Link
               href={`/products/${p.id}`}
-              className="flex min-w-0 flex-row gap-1"
+              className="flex w-full min-w-0 flex-row gap-1"
               onClick={closeSheet}
             >
               <div className="relative aspect-square w-16 flex-shrink-0 ">
@@ -90,7 +99,7 @@ function CartProducts({
                   src={p.images[0]!}
                   alt={p.name}
                   fill
-                  className="object-cover"
+                  className="rounded object-cover shadow"
                 />
               </div>
 
@@ -101,7 +110,8 @@ function CartProducts({
             </Link>
 
             <Button
-              variant={"ghost"}
+              onClick={() => removeFromCart(p)}
+              variant={"destructive"}
               size={"icon"}
               className="ml-3 h-fit w-fit self-center"
             >
