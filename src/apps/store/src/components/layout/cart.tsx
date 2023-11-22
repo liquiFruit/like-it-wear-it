@@ -60,10 +60,7 @@ export function Cart() {
         ) : (
           <CartProducts
             closeSheet={() => setIsOpen(false)}
-            products={products.map((p) => ({
-              ...p,
-              createdAt: new Date(p.createdAt),
-            }))}
+            products={products}
           />
         )}
       </SheetContent>
