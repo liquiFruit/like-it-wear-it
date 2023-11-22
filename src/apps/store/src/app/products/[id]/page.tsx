@@ -1,10 +1,10 @@
 import Image from "next/image"
 
 import { Carousel, Slide } from "ui/src/components/carousel"
-import { Heart } from "ui/src/svgs"
-import { Button } from "ui/src/ui/button"
 
 import { serverClient } from "@/lib/trpc/server-client"
+
+import { ToggleProductInCart } from "./toggle-product"
 
 export default async function ProductDetailPage({
   params: { id },
@@ -52,16 +52,11 @@ export default async function ProductDetailPage({
       )}
 
       <div className="px-3">
-        <div className="flex flex-row items-center justify-between">
-          <h1 className="font-serif text-2xl font-semibold">{product.name}</h1>
-          <Heart />
-        </div>
+        <h1 className="font-serif text-2xl font-semibold">{product.name}</h1>
 
         <p className="my-2 text-xs font-light">{product.description}</p>
 
-        <Button size={"sm"} className="w-full">
-          Add to Cart
-        </Button>
+        <ToggleProductInCart product={product} />
       </div>
     </div>
   )
