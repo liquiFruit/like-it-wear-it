@@ -94,7 +94,6 @@ function CartProducts({
   removeFromCart: (product: Product) => Promise<void>
 }) {
   return (
-    // Height + shadow wrapper
     <div className="no-scrollbar relative flex-1 overflow-y-scroll">
       {/* Content */}
       <div className="flex flex-1 flex-col gap-6">
@@ -148,9 +147,17 @@ function CartProducts({
 function CheckoutButton({ products }: { products: Product[] }) {
   const [isOpen, setIsOpen] = useState(false)
 
+  const productsWithStock = products.filter((p) => p.stock !== 0)
   const productsWithNoStock = products.filter((p) => p.stock === 0)
   const isOutOfStock = productsWithNoStock.length > 0
-  const canCheckout = products.length > productsWithNoStock.length
+  const canCheckout = productsWithStock.length > 0
+
+  const subTotal = !canCheckout
+    ? 0
+    : productsWithStock.reduce((result, entry) => ({
+        ...result,
+        price: result.price + entry.price,
+      })).price
 
   async function tryCreateOrder(force: boolean = false) {
     if (isOutOfStock && !force) return setIsOpen(true)
@@ -160,6 +167,11 @@ function CheckoutButton({ products }: { products: Product[] }) {
 
   return (
     <>
+      <div className="flex flex-row justify-between">
+        <p>Subtotal:</p>
+        <p className="font-semibold">R{(subTotal / 100).toFixed(2)}</p>
+      </div>
+
       <Button onClick={() => tryCreateOrder()} disabled={!canCheckout}>
         Checkout
       </Button>
