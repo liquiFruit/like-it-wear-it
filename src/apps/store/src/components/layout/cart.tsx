@@ -14,6 +14,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "ui/src/ui/sheet"
+import { cn } from "ui/src/utils"
 
 import { useCart } from "@/lib/hooks/useCart"
 
@@ -35,7 +36,7 @@ export function Cart() {
         </Button>
       </SheetTrigger>
 
-      <SheetContent side={"right"}>
+      <SheetContent side={"right"} className="flex flex-col">
         <SheetHeader className="mb-8">
           <SheetTitle>My Cart</SheetTitle>
         </SheetHeader>
@@ -58,11 +59,15 @@ export function Cart() {
             Your cart is empty.
           </p>
         ) : (
-          <CartProducts
-            closeSheet={() => setIsOpen(false)}
-            products={products}
-            removeFromCart={removeFromCart}
-          />
+          <>
+            <CartProducts
+              closeSheet={() => setIsOpen(false)}
+              products={products}
+              removeFromCart={removeFromCart}
+            />
+
+            <CheckoutButton />
+          </>
         )}
       </SheetContent>
     </Sheet>
@@ -79,8 +84,10 @@ function CartProducts({
   removeFromCart: (product: Product) => Promise<void>
 }) {
   return (
-    <section>
-      <div className="flex flex-col gap-6">
+    // Height + shadow wrapper
+    <div className="no-scrollbar relative flex-1 overflow-y-scroll">
+      {/* Content */}
+      <div className="flex flex-1 flex-col gap-6">
         {products.map((p) => (
           <div key={p.id} className="flex flex-row">
             <Link
@@ -93,13 +100,20 @@ function CartProducts({
                   src={p.images[0]!}
                   alt={p.name}
                   fill
-                  className="rounded object-cover shadow"
+                  className={cn(
+                    "rounded object-cover shadow",
+                    p.stock === 0 && "opacity-50",
+                  )}
                 />
               </div>
 
               <div className="min-w-0">
                 <p className="truncate font-medium leading-none">{p.name}</p>
-                <p className="text-xs">R{(p.price / 100).toFixed(2)}</p>
+                {p.stock === 0 ? (
+                  <p className="text-destructive text-xs">Out of stock</p>
+                ) : (
+                  <p className="text-xs">R{(p.price / 100).toFixed(2)}</p>
+                )}
               </div>
             </Link>
 
@@ -114,6 +128,13 @@ function CartProducts({
           </div>
         ))}
       </div>
-    </section>
+
+      {/* Shadow overlay */}
+      <div className="from-background sticky bottom-0 h-16 w-full bg-gradient-to-t to-transparent" />
+    </div>
   )
+}
+
+function CheckoutButton() {
+  return <Button>Checkout</Button>
 }
