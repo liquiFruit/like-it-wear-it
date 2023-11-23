@@ -6,6 +6,16 @@ import { useState } from "react"
 
 import { Select as Product } from "database/src/schema/products"
 import { LoadingSpinner, RemoveIcon, ShoppingBagIcon } from "ui/src/icons"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "ui/src/ui/alert-dialog"
 import { Button } from "ui/src/ui/button"
 import {
   Sheet,
@@ -66,7 +76,7 @@ export function Cart() {
               removeFromCart={removeFromCart}
             />
 
-            <CheckoutButton />
+            <CheckoutButton products={products} />
           </>
         )}
       </SheetContent>
@@ -135,6 +145,42 @@ function CartProducts({
   )
 }
 
-function CheckoutButton() {
-  return <Button>Checkout</Button>
+function CheckoutButton({ products }: { products: Product[] }) {
+  const [isOpen, setIsOpen] = useState(false)
+
+  const productsWithNoStock = products.filter((p) => p.stock === 0)
+  const isOutOfStock = productsWithNoStock.length > 0
+  const canCheckout = products.length > productsWithNoStock.length
+
+  async function tryCreateOrder(force: boolean = false) {
+    if (isOutOfStock && !force) return setIsOpen(true)
+
+    alert("creating order...")
+  }
+
+  return (
+    <>
+      <Button onClick={() => tryCreateOrder()} disabled={!canCheckout}>
+        Checkout
+      </Button>
+
+      <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Out of Stock</AlertDialogTitle>
+            <AlertDialogDescription>
+              Some products in your cart are out of stock. These products will
+              remain in your cart and not be added to the order.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Back</AlertDialogCancel>
+            <AlertDialogAction onClick={async () => tryCreateOrder(true)}>
+              Continue to Checkout
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </>
+  )
 }
