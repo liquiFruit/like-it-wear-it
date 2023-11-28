@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
+import { usePathname, useRouter } from "next/navigation"
 import { useState } from "react"
 
 import { CartProduct } from "database/src/schema/carts"
@@ -77,7 +78,10 @@ export function Cart() {
               removeFromCart={removeFromCart}
             />
 
-            <CheckoutButton products={products} />
+            <CheckoutButton
+              products={products}
+              closeSheet={() => setIsOpen(false)}
+            />
           </>
         )}
       </SheetContent>
@@ -155,7 +159,15 @@ function CartProducts({
   )
 }
 
-function CheckoutButton({ products }: { products: Product[] }) {
+function CheckoutButton({
+  products,
+  closeSheet,
+}: {
+  products: Product[]
+  closeSheet: () => void
+}) {
+  const pathname = usePathname()
+  const router = useRouter()
   const [isOpen, setIsOpen] = useState(false)
 
   const productsWithStock = products.filter((p) => p.stock !== 0)
@@ -171,9 +183,11 @@ function CheckoutButton({ products }: { products: Product[] }) {
       })).price
 
   async function tryCreateOrder(force: boolean = false) {
+    if (pathname === "/orders/new") return closeSheet()
     if (isOutOfStock && !force) return setIsOpen(true)
 
-    alert("creating order...")
+    router.push("/orders/new")
+    closeSheet()
   }
 
   return (
