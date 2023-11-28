@@ -3,7 +3,7 @@ import { integer, primaryKey, sqliteTable, text } from "drizzle-orm/sqlite-core"
 import { createInsertSchema, createSelectSchema } from "drizzle-zod"
 
 import { users } from "./auth"
-import { products } from "./products"
+import { Select as Product, products } from "./products"
 
 export const carts = sqliteTable(
   "carts",
@@ -30,3 +30,7 @@ export const carts = sqliteTable(
 
 export const insertSchema = createInsertSchema(carts)
 export const selectSchema = createSelectSchema(carts)
+
+export type CartProduct = Product & {
+  addedAt: (typeof selectSchema._type)["createdAt"]
+}
