@@ -1,7 +1,7 @@
 import { sql } from "drizzle-orm"
 
 import { db, eq } from "../.."
-import { carts } from "../../schema/carts"
+import { CartProduct, carts } from "../../schema/carts"
 import { products } from "../../schema/products"
 
 const cartProductsByUserId = db
@@ -13,12 +13,16 @@ const cartProductsByUserId = db
     price: products.price,
     stock: products.stock,
     images: products.images,
+
+    addedAt: carts.addedAt,
   })
   .from(products)
   .innerJoin(carts, eq(products.id, carts.productId))
   .where(eq(carts.userId, sql.placeholder("userId")))
   .prepare()
 
-export async function getCartProductsByUserId(userId: string) {
+export async function getCartProductsByUserId(
+  userId: string,
+): Promise<CartProduct[]> {
   return cartProductsByUserId.execute({ userId })
 }

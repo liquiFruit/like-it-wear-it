@@ -16,7 +16,9 @@ export function useCart() {
 
   async function addToCart(product: Product) {
     const initialProducts = getData() ?? []
-    const updatedProducts = initialProducts.concat([product])
+    const updatedProducts = initialProducts.concat([
+      { ...product, addedAt: new Date() },
+    ])
 
     // Optimistic update
     setData(undefined, updatedProducts)

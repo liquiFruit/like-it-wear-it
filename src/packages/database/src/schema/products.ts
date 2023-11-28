@@ -1,13 +1,14 @@
-import { sql } from "drizzle-orm"
 import { blob, integer, sqliteTable, text } from "drizzle-orm/sqlite-core"
 import { createInsertSchema, createSelectSchema } from "drizzle-zod"
 import { z } from "zod"
+
+import { SQL_TIME_NOW } from "../util"
 
 export const products = sqliteTable("products", {
   id: integer("id").primaryKey(),
   createdAt: integer("created_at", { mode: "timestamp" })
     .notNull()
-    .default(sql`(strftime('%s', 'now'))`),
+    .default(SQL_TIME_NOW),
 
   name: text("name").notNull(),
   description: text("description").notNull(),
