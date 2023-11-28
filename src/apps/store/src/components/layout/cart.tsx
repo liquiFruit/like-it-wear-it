@@ -93,11 +93,21 @@ function CartProducts({
   closeSheet: () => void
   removeFromCart: (product: Product) => Promise<void>
 }) {
+  function sortProducts(a: Product, b: Product) {
+    // make "out of stock" appear last
+    const stockDiff = b.stock - a.stock
+    if (stockDiff !== 0) return stockDiff
+
+    // make newest appear first
+    const timeDiff = a.createdAt.getTime() - b.createdAt.getTime()
+    return timeDiff
+  }
+
   return (
     <div className="no-scrollbar relative flex-1 overflow-y-scroll">
       {/* Content */}
       <div className="flex flex-1 flex-col gap-6">
-        {products.map((p) => (
+        {products.toSorted(sortProducts).map((p) => (
           <div key={p.id} className="flex flex-row">
             <Link
               href={`/products/${p.id}`}
