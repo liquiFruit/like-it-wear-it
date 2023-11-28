@@ -16,7 +16,7 @@ export const carts = sqliteTable(
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
 
-    createdAt: integer("created_at", { mode: "timestamp_ms" })
+    addedAt: integer("added_at", { mode: "timestamp_ms" })
       .notNull()
       .default(SQL_TIME_NOW),
   },
@@ -32,5 +32,5 @@ export const insertSchema = createInsertSchema(carts)
 export const selectSchema = createSelectSchema(carts)
 
 export type CartProduct = Product & {
-  addedAt: (typeof selectSchema._type)["createdAt"]
+  addedAt: (typeof selectSchema._type)["addedAt"]
 }

@@ -14,7 +14,7 @@ const cartProductsByUserId = db
     stock: products.stock,
     images: products.images,
 
-    addedAt: carts.createdAt,
+    addedAt: carts.addedAt,
   })
   .from(products)
   .innerJoin(carts, eq(products.id, carts.productId))
