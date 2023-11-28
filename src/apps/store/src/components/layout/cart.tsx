@@ -4,6 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useState } from "react"
 
+import { CartProduct } from "database/src/schema/carts"
 import { Select as Product } from "database/src/schema/products"
 import { LoadingSpinner, RemoveIcon, ShoppingBagIcon } from "ui/src/icons"
 import {
@@ -89,18 +90,18 @@ function CartProducts({
   closeSheet,
   removeFromCart,
 }: {
-  products: Product[]
+  products: CartProduct[]
   closeSheet: () => void
   removeFromCart: (product: Product) => Promise<void>
 }) {
-  function sortProducts(a: Product, b: Product) {
+  function sortProducts(a: CartProduct, b: CartProduct) {
     // make "out of stock" appear last
     const stockDiff = b.stock - a.stock
     if (stockDiff !== 0) return stockDiff
 
-    // make newest appear first
-    const timeDiff = a.createdAt.getTime() - b.createdAt.getTime()
-    return timeDiff
+    // make newly added appear first
+    const timeDiff = b.addedAt.getTime() - a.addedAt.getTime()
+    return Math.sign(timeDiff)
   }
 
   return (
@@ -114,7 +115,7 @@ function CartProducts({
               className="flex w-full min-w-0 flex-row gap-1"
               onClick={closeSheet}
             >
-              <div className="relative aspect-square w-16 flex-shrink-0 ">
+              <div className="relative aspect-square w-16 flex-shrink-0">
                 <Image
                   src={p.images[0]!}
                   alt={p.name}
