@@ -18,10 +18,10 @@
   "devDependencies": {
     "@types/node": "^18.15.11",
     "dotenv": "^16.3.1",
-    "drizzle-kit": "0.20.2",
+    "drizzle-kit": "0.20.6",
     "drizzle-zod": "0.5.1",
-    "tsx": "^3.12.7",
     "eslint-config-custom": "workspace:*",
-    "tsconfig": "workspace:*"
+    "tsconfig": "workspace:*",
+    "tsx": "^3.12.7"
   }
 }
