@@ -20,13 +20,6 @@ export default function NewOrderPage() {
   const [isDelivering, setIsDelivering] = useState(true)
   const { products } = useCart()
 
-  if (
-    session.status === "unauthenticated" ||
-    !session.data ||
-    !session.data.user.email
-  )
-    return redirect("/")
-
   if (!products || products.length === 0)
     return (
       <div className="flex flex-col items-center">
@@ -40,6 +33,11 @@ export default function NewOrderPage() {
   const price = products
     .filter((p) => p.stock > 0)
     .reduce((res, ent) => (res += ent.price / 100), 0)
+
+  async function handleCreateOrder() {
+    if (isDelivering && deliveryDetails === "")
+      alert("Please provide delivery details!")
+  }
 
   return (
     <main className="px-3">
@@ -83,8 +81,8 @@ export default function NewOrderPage() {
 
         <TabsContent value="delivery" className="w-full">
           <p className="text-sm">
-            Delivery to your door is available at a flat rate of R100. Enter
-            your street address and delivery details below.
+            Delivery is available nation wide at a flat rate of R100. Enter your
+            street address and delivery details below.
           </p>
           <p className="my-1.5 text-xs text-gray-500">
             * We may contact you if any issues arise with deliveries to this
@@ -115,13 +113,17 @@ export default function NewOrderPage() {
 
       <section className="mt-6 grid grid-cols-2 text-sm">
         <p className="col-span-1">Your Email:</p>
-        <p
-          style={{ wordWrap: "break-word" }}
-          className="col-span-1 text-right font-bold "
-        >
-          {session.data.user.email}
-        </p>
 
+        {session.status === "loading" ? (
+          <p className="col-span-1 text-right">Loading...</p>
+        ) : (
+          <p
+            style={{ wordWrap: "break-word" }}
+            className="col-span-1 text-right font-bold"
+          >
+            {session.data?.user.email || "Not signed in!"}
+          </p>
+        )}
         <Separator orientation="horizontal" className="col-span-2" />
 
         <p className="col-span-1">Subtotal:</p>
@@ -142,7 +144,9 @@ export default function NewOrderPage() {
         </p>
       </section>
 
-      <Button className="mt-3 w-full">Make Payment</Button>
+      <Button onClick={handleCreateOrder} className="mt-3 w-full">
+        Make Payment
+      </Button>
     </main>
   )
 }
