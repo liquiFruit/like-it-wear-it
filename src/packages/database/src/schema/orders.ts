@@ -2,7 +2,6 @@ import { blob, integer, sqliteTable, text } from "drizzle-orm/sqlite-core"
 import { createInsertSchema, createSelectSchema, jsonSchema } from "drizzle-zod"
 import { z } from "zod"
 
-import { db } from ".."
 import { SQL_TIME_NOW } from "../util"
 import { users } from "./auth"
 import { selectSchema as selectProductSchema } from "./products"
