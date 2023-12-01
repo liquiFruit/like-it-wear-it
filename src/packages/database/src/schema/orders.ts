@@ -22,6 +22,11 @@ export const orders = sqliteTable("orders", {
   deliveryDetails: blob("deliveryDetails", { mode: "json" })
     .notNull()
     .$type<DeliveryDetails>(),
+
+  /**
+   * Create a hard cutoff timestamp indicating when the order must be paid by.
+   */
+  paymentDeadline: integer("payment_deadline", { mode: "timestamp" }).notNull(),
 })
 
 export const deliveryDetailsSchema = z.union([
@@ -40,15 +45,17 @@ export const deliveryDetailsSchema = z.union([
 ])
 export type DeliveryDetails = z.infer<typeof deliveryDetailsSchema>
 
-const extraProperties = {
+export const insertOrderSchema = createInsertSchema(orders).extend({
+  deliveryDetails: deliveryDetailsSchema,
+  totalAmount: z.undefined(),
+  paymentDeadline: z.undefined(),
+  userId: z.undefined(),
+})
+
+export const selectOrderSchema = createSelectSchema(orders).extend({
   products: z.array(selectProductSchema),
   deliveryDetails: deliveryDetailsSchema,
-}
-
-export const insertOrderSchema =
-  createInsertSchema(orders).extend(extraProperties)
-export const selectOrderSchema =
-  createSelectSchema(orders).extend(extraProperties)
+})
 
 export type NewOrder = z.infer<typeof insertOrderSchema>
 export type Order = z.infer<typeof selectOrderSchema>
