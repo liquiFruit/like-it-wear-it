@@ -21,4 +21,4 @@ export const db = drizzle(
   },
 )
 
-export { and, eq, or } from "drizzle-orm"
+export { and, eq, or, inArray, gte } from "drizzle-orm"
