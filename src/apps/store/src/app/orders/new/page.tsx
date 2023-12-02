@@ -7,18 +7,23 @@ import { useState } from "react"
 
 import { useSession } from "next-auth/react"
 import { Carousel, Slide } from "ui/src/components/carousel"
+import { LoadingSpinner } from "ui/src/icons"
 import { Button } from "ui/src/ui/button"
 import { Separator } from "ui/src/ui/separator"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "ui/src/ui/tabs"
 import { Textarea } from "ui/src/ui/textarea"
 
 import { useCart } from "@/lib/hooks/useCart"
+import { trpc } from "@/lib/trpc/client"
 
 export default function NewOrderPage() {
   const session = useSession()
   const [deliveryDetails, setDeliveryDetails] = useState("")
   const [isDelivering, setIsDelivering] = useState(true)
   const { products } = useCart()
+
+  const { mutateAsync: createOrder, isPending } =
+    trpc.createOrderByUserId.useMutation()
 
   if (!products || products.length === 0)
     return (
@@ -35,8 +40,28 @@ export default function NewOrderPage() {
     .reduce((res, ent) => (res += ent.price / 100), 0)
 
   async function handleCreateOrder() {
-    if (isDelivering && deliveryDetails === "")
+    if (isDelivering && deliveryDetails === "") {
       alert("Please provide delivery details!")
+      return
+    }
+
+    await createOrder(
+      {
+        ...(isDelivering
+          ? {
+              deliveryDetails: {
+                isDelivering: true,
+                details: { address: deliveryDetails, instructions: "test" },
+              },
+            }
+          : { deliveryDetails: { isDelivering: false } }),
+      },
+      {
+        onSettled(data, error, variables, context) {
+          if (error) alert(error.message)
+        },
+      },
+    )
   }
 
   return (
@@ -145,7 +170,14 @@ export default function NewOrderPage() {
       </section>
 
       <Button onClick={handleCreateOrder} className="mt-3 w-full">
-        Make Payment
+        {isPending ? (
+          <>
+            <LoadingSpinner className="mr-3" />
+            Processing...
+          </>
+        ) : (
+          "Make Payment"
+        )}
       </Button>
     </main>
   )
