@@ -6,7 +6,7 @@ import { SQL_TIME_NOW } from "../util"
 
 export const products = sqliteTable("products", {
   id: integer("id").primaryKey(),
-  createdAt: integer("created_at", { mode: "timestamp" })
+  createdAt: integer("created_at", { mode: "timestamp_ms" })
     .notNull()
     .default(SQL_TIME_NOW),
 

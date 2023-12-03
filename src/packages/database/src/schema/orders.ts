@@ -23,7 +23,7 @@ export const orders = sqliteTable("orders", {
     .notNull()
     .references(() => users.id),
 
-  createdAt: integer("created_at", { mode: "timestamp" })
+  createdAt: integer("created_at", { mode: "timestamp_ms" })
     .notNull()
     .default(SQL_TIME_NOW),
 
@@ -40,7 +40,9 @@ export const orders = sqliteTable("orders", {
   /**
    * Create a hard cutoff timestamp indicating when the order must be paid by.
    */
-  paymentDeadline: integer("payment_deadline", { mode: "timestamp" }).notNull(),
+  paymentDeadline: integer("payment_deadline", {
+    mode: "timestamp_ms",
+  }).notNull(),
 })
 
 export const deliveryDetailsSchema = z.union([
