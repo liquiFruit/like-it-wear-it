@@ -4,7 +4,10 @@ import {
   removeProductFromCart,
 } from "database/src/api/cart/mutations"
 import { getCartProductsByUserId } from "database/src/api/cart/queries"
-import { tryCreateOrder } from "database/src/api/orders/mutations"
+import {
+  cleanUpExpiredOrders,
+  tryCreateOrder,
+} from "database/src/api/orders/mutations"
 import {
   getAllProductsInStock,
   getProductById,
@@ -40,6 +43,8 @@ export const appRouter = router({
   createOrderByUserId: protectedProcedure
     .input(insertOrderSchema)
     .mutation(async ({ ctx, input }) => {
+      await cleanUpExpiredOrders()
+
       const res = await tryCreateOrder(ctx.session.user.id, input)
       if (!res.success)
         throw new TRPCError({

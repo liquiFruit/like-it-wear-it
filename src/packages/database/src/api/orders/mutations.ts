@@ -68,7 +68,10 @@ export async function tryCreateOrder(userId: string, newOrder: NewOrder) {
       )
 
       // Decrease stock by one
-      await tx.update(products).set({ stock: sql`${products.stock} - 1` })
+      await tx
+        .update(products)
+        .set({ stock: sql`${products.stock} - 1` })
+        .where(inArray(products.id, availableProductIds))
 
       // Create payment link and store it in its own table
       const paymentLink = await "http://google.com"
@@ -98,13 +101,13 @@ export async function cleanUpExpiredOrders() {
     .where(lt(orders.paymentDeadline, new Date()))
 
   const expiredOrdersProductsSq = db
-    .select()
+    .select({ id: products.id })
     .from(products)
     .where(
       inArray(
         products.id,
         db
-          .select()
+          .select({ id: orderProducts.productId })
           .from(orderProducts)
           .where(inArray(orderProducts.orderId, expiredOrdersSq)),
       ),
