@@ -1,8 +1,7 @@
-import { sql } from "drizzle-orm"
+import { lt, sql } from "drizzle-orm"
 
 import { and, db, eq, gte, inArray } from "../.."
 import { PAYMENT_SESSION_TIMEOUT_MS } from "../../env"
-import { users } from "../../schema/auth"
 import { carts } from "../../schema/carts"
 import { orderProducts } from "../../schema/order-products"
 import { DeliveryDetails, NewOrder, orders } from "../../schema/orders"
@@ -90,4 +89,38 @@ export async function tryCreateOrder(userId: string, newOrder: NewOrder) {
     // TODO: Add error handling here to report which part of the transaction failed
     return { success: false, error }
   }
+}
+
+export async function cleanUpExpiredOrders() {
+  const expiredOrdersSq = db
+    .select({ id: orders.id })
+    .from(orders)
+    .where(lt(orders.paymentDeadline, new Date()))
+
+  const expiredOrdersProductsSq = db
+    .select()
+    .from(products)
+    .where(
+      inArray(
+        products.id,
+        db
+          .select()
+          .from(orderProducts)
+          .where(inArray(orderProducts.orderId, expiredOrdersSq)),
+      ),
+    )
+
+  const expireOrders = db
+    .update(orders)
+    .set({
+      status: "EXPIRED",
+    })
+    .where(inArray(orders.id, expiredOrdersSq))
+
+  const releaseProducts = db
+    .update(products)
+    .set({ stock: sql`${products.stock} + 1` })
+    .where(inArray(products.id, expiredOrdersProductsSq))
+
+  await db.batch([expireOrders, releaseProducts])
 }

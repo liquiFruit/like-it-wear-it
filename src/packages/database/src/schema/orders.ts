@@ -6,6 +6,16 @@ import { SQL_TIME_NOW } from "../util"
 import { users } from "./auth"
 import { selectSchema as selectProductSchema } from "./products"
 
+export const ORDER_STATUS = [
+  "UNPAID",
+  "PAID",
+  "EXPIRED",
+  "SHIPPED",
+  "REFUND_PENDING",
+  "REFUNDED",
+] as const
+export type OrderStatus = (typeof ORDER_STATUS)[number]
+
 export const orders = sqliteTable("orders", {
   id: integer("id").primaryKey(),
 
@@ -16,6 +26,10 @@ export const orders = sqliteTable("orders", {
   createdAt: integer("created_at", { mode: "timestamp" })
     .notNull()
     .default(SQL_TIME_NOW),
+
+  status: text("status", { mode: "text", enum: ORDER_STATUS })
+    .notNull()
+    .default("UNPAID"),
 
   totalAmount: integer("total_amount").notNull(),
 
