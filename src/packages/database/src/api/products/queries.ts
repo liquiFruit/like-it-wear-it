@@ -1,4 +1,4 @@
-import { eq, sql } from "drizzle-orm"
+import { eq, gt, sql } from "drizzle-orm"
 
 import { db } from "../.."
 import { products } from "../../schema/products"
@@ -6,7 +6,7 @@ import { products } from "../../schema/products"
 const allItemsInStock = db
   .select()
   .from(products)
-  .where(sql`"products"."stock_quantity" > 0`)
+  .where(gt(products.stock, 0))
   .prepare()
 
 export async function getAllProductsInStock() {
