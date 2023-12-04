@@ -1,6 +1,6 @@
-import { lt, ne, sql } from "drizzle-orm"
+import { and, eq, gte, inArray, lt, sql } from "drizzle-orm"
 
-import { and, db, eq, gte, inArray } from "../.."
+import { db } from "../.."
 import { PAYMENT_SESSION_TIMEOUT_MS } from "../../env"
 import { carts } from "../../schema/carts"
 import { orderProducts } from "../../schema/order-products"
@@ -105,7 +105,7 @@ export async function cleanUpExpiredOrders() {
     .select({ id: orders.id })
     .from(orders)
     .where(
-      and(lt(orders.paymentDeadline, new Date()), ne(orders.status, "UNPAID")),
+      and(lt(orders.paymentDeadline, new Date()), eq(orders.status, "UNPAID")),
     )
 
   const expiredOrdersProductsSq = db
