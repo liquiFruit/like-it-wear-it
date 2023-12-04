@@ -1,20 +1,26 @@
-import { lt, sql } from "drizzle-orm"
+import { lt, ne, sql } from "drizzle-orm"
 
 import { and, db, eq, gte, inArray } from "../.."
 import { PAYMENT_SESSION_TIMEOUT_MS } from "../../env"
 import { carts } from "../../schema/carts"
 import { orderProducts } from "../../schema/order-products"
-import { DeliveryDetails, NewOrder, orders } from "../../schema/orders"
-import { products } from "../../schema/products"
+import { DeliveryDetails, orders } from "../../schema/orders"
+import { Select as Product, products } from "../../schema/products"
 
-export async function tryCreateOrder(userId: string, newOrder: NewOrder) {
+export async function tryCreateOrder(
+  userId: string,
+  deliveryDetails: DeliveryDetails,
+  productIds: Product["id"][],
+) {
   try {
     const { order, paymentLink } = await db.transaction(async (tx) => {
       // Sub query representing the products in a user's cart
       const userCartProductsSq = tx
         .select({ productId: carts.productId })
         .from(carts)
-        .where(eq(carts.userId, userId))
+        .where(
+          and(eq(carts.userId, userId), inArray(carts.productId, productIds)),
+        )
 
       // Get only in-stock products from a user's cart
       const availableProducts = await tx
@@ -36,10 +42,10 @@ export async function tryCreateOrder(userId: string, newOrder: NewOrder) {
         .insert(orders)
         .values({
           userId,
-          deliveryDetails: newOrder.deliveryDetails,
+          deliveryDetails: deliveryDetails,
           totalAmount: availableProducts.reduce(
             (res, ent) => (res += ent.price),
-            newOrder.deliveryDetails.isDelivering ? 100_00 : 0,
+            deliveryDetails.isDelivering ? 100_00 : 0,
           ),
           paymentDeadline: new Date(
             Date.now() + PAYMENT_SESSION_TIMEOUT_MS + 30_000,
@@ -98,7 +104,9 @@ export async function cleanUpExpiredOrders() {
   const expiredOrdersSq = db
     .select({ id: orders.id })
     .from(orders)
-    .where(lt(orders.paymentDeadline, new Date()))
+    .where(
+      and(lt(orders.paymentDeadline, new Date()), ne(orders.status, "UNPAID")),
+    )
 
   const expiredOrdersProductsSq = db
     .select({ id: products.id })
@@ -125,5 +133,6 @@ export async function cleanUpExpiredOrders() {
     .set({ stock: sql`${products.stock} + 1` })
     .where(inArray(products.id, expiredOrdersProductsSq))
 
+  // batch is run as a transaction
   await db.batch([expireOrders, releaseProducts])
 }

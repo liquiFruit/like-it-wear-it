@@ -35,9 +35,12 @@ export default function NewOrderPage() {
       </div>
     )
 
-  const price = products
-    .filter((p) => p.stock > 0)
-    .reduce((res, ent) => (res += ent.price / 100), 0)
+  const availableProducts = products.filter((p) => p.stock > 0)
+
+  const price = availableProducts.reduce(
+    (res, ent) => (res += ent.price / 100),
+    0,
+  )
 
   async function handleCreateOrder() {
     if (isDelivering && deliveryDetails === "") {
@@ -45,16 +48,15 @@ export default function NewOrderPage() {
       return
     }
 
-    await createOrder(
+    const res = await createOrder(
       {
-        ...(isDelivering
+        deliveryDetails: isDelivering
           ? {
-              deliveryDetails: {
-                isDelivering: true,
-                details: { address: deliveryDetails, instructions: "test" },
-              },
+              isDelivering: true,
+              details: { address: deliveryDetails, instructions: "test" },
             }
-          : { deliveryDetails: { isDelivering: false } }),
+          : { isDelivering: false },
+        productIds: availableProducts!.map((p) => p.id),
       },
       {
         onSettled(data, error, variables, context) {

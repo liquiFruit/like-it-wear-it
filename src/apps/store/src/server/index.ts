@@ -12,7 +12,7 @@ import {
   getAllProductsInStock,
   getProductById,
 } from "database/src/api/products/queries"
-import { insertOrderSchema } from "database/src/schema/orders"
+import { deliveryDetailsSchema } from "database/src/schema/orders"
 import { z } from "zod"
 
 import { protectedProcedure, publicProcedure, router } from "@/server/trpc"
@@ -41,11 +41,20 @@ export const appRouter = router({
     }),
 
   createOrderByUserId: protectedProcedure
-    .input(insertOrderSchema)
+    .input(
+      z.object({
+        deliveryDetails: deliveryDetailsSchema,
+        productIds: z.number().array().min(1),
+      }),
+    )
     .mutation(async ({ ctx, input }) => {
       await cleanUpExpiredOrders()
 
-      const res = await tryCreateOrder(ctx.session.user.id, input)
+      const res = await tryCreateOrder(
+        ctx.session.user.id,
+        input.deliveryDetails,
+        input.productIds,
+      )
       if (!res.success)
         throw new TRPCError({
           message: "Failed to create order: " + res.error,
