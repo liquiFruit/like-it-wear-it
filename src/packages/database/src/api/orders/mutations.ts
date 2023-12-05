@@ -101,38 +101,64 @@ export async function tryCreateOrder(
 }
 
 export async function cleanUpExpiredOrders() {
-  const expiredOrdersSq = db
-    .select({ id: orders.id })
-    .from(orders)
-    .where(
-      and(lt(orders.paymentDeadline, new Date()), eq(orders.status, "UNPAID")),
-    )
+  try {
+    const res = await db.transaction(async (tx) => {
+      // Get orders than are expired
+      const expiredOrders = await tx
+        .select({ id: orders.id })
+        .from(orders)
+        .where(
+          and(
+            // Only orders that are unpaid can be expired
+            eq(orders.status, "UNPAID"),
 
-  const expiredOrdersProductsSq = db
-    .select({ id: products.id })
-    .from(products)
-    .where(
-      inArray(
-        products.id,
-        db
-          .select({ id: orderProducts.productId })
-          .from(orderProducts)
-          .where(inArray(orderProducts.orderId, expiredOrdersSq)),
-      ),
-    )
+            // Dates are stored as numbers and can be compared as such
+            lt(orders.paymentDeadline, new Date()),
+          ),
+        )
 
-  const expireOrders = db
-    .update(orders)
-    .set({
-      status: "EXPIRED",
+      // Return early if there are no expired orders
+      if (expiredOrders.length === 0) return "No expired orders" as const
+
+      // Get a list of expired order IDs
+      const expiredOrderIds = expiredOrders.map((eo) => eo.id)
+
+      // Mark these orders as expired
+      // const expireOrdersRes =
+      await tx
+        .update(orders)
+        .set({
+          status: "EXPIRED",
+        })
+        .where(inArray(orders.id, expiredOrderIds))
+
+      // Get a list of products from expired orders, and the respective amount of stock
+      const expiredProducts = await tx
+        .select({
+          id: orderProducts.productId,
+          amount: sql<number>`count(*)`.as("amount"),
+        })
+        .from(orderProducts)
+        .where(inArray(orderProducts.orderId, expiredOrderIds))
+        .groupBy(orderProducts.productId)
+
+      // Update these products' stock by the respective amounts
+      // TODO: Batch these updates somehow
+      expiredProducts.forEach(async (ep) => {
+        await tx
+          .update(products)
+          .set({ stock: sql`${products.stock} + ${ep.amount}` })
+          .where(eq(products.id, ep.id))
+      })
+
+      return `Successfully released ${expiredProducts.reduce(
+        (res, ent) => res + ent.amount,
+        0,
+      )} item/s of stock.` as const
     })
-    .where(inArray(orders.id, expiredOrdersSq))
 
-  const releaseProducts = db
-    .update(products)
-    .set({ stock: sql`${products.stock} + 1` })
-    .where(inArray(products.id, expiredOrdersProductsSq))
-
-  // batch is run as a transaction
-  await db.batch([expireOrders, releaseProducts])
+    return { success: true, result: res }
+  } catch (error) {
+    return { success: false, error }
+  }
 }
