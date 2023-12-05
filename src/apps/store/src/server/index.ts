@@ -48,18 +48,19 @@ export const appRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      await cleanUpExpiredOrders()
-
       const res = await tryCreateOrder(
         ctx.session.user.id,
         input.deliveryDetails,
         input.productIds,
       )
-      if (!res.success)
-        throw new TRPCError({
-          message: "Failed to create order: " + res.error,
-          code: "INTERNAL_SERVER_ERROR",
-        })
+
+      if (res.success) return { order: res.order, paymentLink: res.paymentLink }
+
+      // Otherwise, throw an error indicating something went wrong
+      throw new TRPCError({
+        message: "Failed to create order: " + res.error,
+        code: "INTERNAL_SERVER_ERROR",
+      })
     }),
 })
 
