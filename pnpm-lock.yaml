@@ -159,6 +159,16 @@ importers:
         specifier: ^3.12.7
         version: 3.14.0
 
+  src/packages/env:
+    dependencies:
+      znv:
+        specifier: ^0.4.0
+        version: 0.4.0(zod@3.22.4)
+    devDependencies:
+      dotenv:
+        specifier: ^16.3.1
+        version: 16.3.1
+
   src/packages/eslint-config-custom:
     devDependencies:
       '@vercel/style-guide':
@@ -7052,6 +7062,15 @@ packages:
     resolution: {integrity: sha512-dyQ2gfDe5RgEL7hKue1dFswmy4vzb/SRnLLRHaHNm39JteKstFs47I0nevlEa3oOWNMJ7XB4V1l/IdcLezPwoA==}
     peerDependencies:
       zod: ^3.11.6
+    dependencies:
+      colorette: 2.0.20
+      zod: 3.22.4
+    dev: false
+
+  /znv@0.4.0(zod@3.22.4):
+    resolution: {integrity: sha512-6/pGsQhBisLzKdyC90mUCRgYDtCfQ4aQ68sDybexq3GMzqqkp662GH6qIyuCHJC1i72hJPHbWAhccTJVuZUQfA==}
+    peerDependencies:
+      zod: ^3.13.2
     dependencies:
       colorette: 2.0.20
       zod: 3.22.4
