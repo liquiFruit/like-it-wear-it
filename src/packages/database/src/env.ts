@@ -22,6 +22,7 @@ if (process.env["NODE_ENV"] === "development") {
 const schema = {
   DATABASE_URL: { schema: z.string().min(1) },
   DATABASE_AUTH_TOKEN: { schema: z.string().min(1) },
+  PAYMENT_SESSION_TIMEOUT_MS: { schema: z.number() },
 }
 
 try {
@@ -33,7 +34,5 @@ try {
   process.exit()
 }
 
-export const { DATABASE_URL, DATABASE_AUTH_TOKEN } = parseEnv(
-  process.env,
-  schema,
-)
+export const { DATABASE_URL, DATABASE_AUTH_TOKEN, PAYMENT_SESSION_TIMEOUT_MS } =
+  parseEnv(process.env, schema)

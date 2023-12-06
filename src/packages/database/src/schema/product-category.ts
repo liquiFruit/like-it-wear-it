@@ -2,17 +2,18 @@ import { integer, primaryKey, sqliteTable } from "drizzle-orm/sqlite-core"
 import { createInsertSchema, createSelectSchema } from "drizzle-zod"
 import { z } from "zod"
 
-import { Categories, Products } from "./"
+import { categories } from "./categories"
+import { products } from "./products"
 
 export const productsCategories = sqliteTable(
   "products_categories",
   {
     productId: integer("product_id")
       .notNull()
-      .references(() => Products.products.id, { onDelete: "cascade" }),
+      .references(() => products.id, { onDelete: "cascade" }),
     categoryId: integer("category_id")
       .notNull()
-      .references(() => Categories.categories.id, { onDelete: "cascade" }),
+      .references(() => categories.id, { onDelete: "cascade" }),
   },
   (table) => ({
     pk: primaryKey({
