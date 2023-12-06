@@ -25,4 +25,23 @@ if (!process.env["NODE_ENV"] || process.env["NODE_ENV"] === "development") {
 const Z_STRING = z.string().min(1)
 const Z_NUMBER = z.number()
 
-export const {} = parseEnv(process.env, {})
+export const {
+  DATABASE_AUTH_TOKEN,
+  DATABASE_URL,
+  PAYMENT_SESSION_TIMEOUT_MS,
+  NEXTAUTH_SECRET,
+  GITHUB_CLIENT_ID,
+  GITHUB_CLIENT_SECRET,
+  NEXTAUTH_URL,
+} = parseEnv(process.env, {
+  DATABASE_URL: Z_STRING,
+  DATABASE_AUTH_TOKEN: Z_STRING,
+  PAYMENT_SESSION_TIMEOUT_MS: Z_NUMBER,
+
+  NEXTAUTH_SECRET: Z_STRING,
+  GITHUB_CLIENT_ID: Z_STRING,
+  GITHUB_CLIENT_SECRET: Z_STRING,
+  NEXTAUTH_URL: Z_STRING,
+})
+
+console.log("[ENV] Success!")

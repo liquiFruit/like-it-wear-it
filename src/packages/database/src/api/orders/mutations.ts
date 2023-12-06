@@ -1,7 +1,7 @@
+import { PAYMENT_SESSION_TIMEOUT_MS } from "@like-it-wear-it/env"
 import { and, eq, gte, inArray, lt, sql } from "drizzle-orm"
 
 import { db } from "../.."
-import { PAYMENT_SESSION_TIMEOUT_MS } from "../../env"
 import { carts } from "../../schema/carts"
 import { orderProducts } from "../../schema/order-products"
 import { DeliveryDetails, orders } from "../../schema/orders"

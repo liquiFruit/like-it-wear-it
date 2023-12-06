@@ -9,14 +9,15 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@like-it-wear-it/database": "workspace:*",
+    "@like-it-wear-it/env": "workspace:*",
+    "@like-it-wear-it/ui": "workspace:*",
     "@tanstack/react-query": "^5",
     "@trpc/client": "next",
     "@trpc/next": "next",
     "@trpc/react-query": "next",
     "@trpc/server": "next",
-    "@like-it-wear-it/database": "workspace:*",
-    "superjson": "^2.2.1",
-    "@like-it-wear-it/ui": "workspace:*"
+    "superjson": "^2.2.1"
   },
   "devDependencies": {
     "@like-it-wear-it/eslint-config-custom": "workspace:*",

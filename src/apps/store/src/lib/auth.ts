@@ -2,6 +2,7 @@ import { AdapterUser } from "@auth/core/adapters"
 import { DrizzleAdapter } from "@auth/drizzle-adapter"
 import { and, db, eq } from "@like-it-wear-it/database"
 import { accounts, users } from "@like-it-wear-it/database/src/schema/auth"
+import { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } from "@like-it-wear-it/env"
 import {
   DefaultSession,
   DefaultUser,
@@ -10,8 +11,6 @@ import {
   User,
 } from "next-auth"
 import GithubProvider from "next-auth/providers/github"
-
-import { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } from "@/env"
 
 declare module "next-auth" {
   interface Session {
