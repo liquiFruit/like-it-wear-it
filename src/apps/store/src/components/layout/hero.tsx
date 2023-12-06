@@ -1,6 +1,6 @@
 import Image from "next/image"
 
-import { Button } from "ui/src/ui/button"
+import { Button } from "@like-it-wear-it/ui/src/ui/button"
 
 import { serverClient } from "@/lib/trpc/server-client"
 

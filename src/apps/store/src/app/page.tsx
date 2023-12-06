@@ -1,4 +1,4 @@
-import { Squiggle } from "ui/src/svgs"
+import { Squiggle } from "@like-it-wear-it/ui/src/svgs"
 
 import { Hero } from "@/components/layout/hero"
 import { ProductGrid } from "@/components/products/grid"

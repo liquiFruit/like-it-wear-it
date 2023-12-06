@@ -1,5 +1,5 @@
 {
-  "name": "database",
+  "name": "@like-it-wear-it/database",
   "version": "0.0.0",
   "private": true,
   "main": "./src/index.ts",
@@ -20,8 +20,8 @@
     "dotenv": "^16.3.1",
     "drizzle-kit": "0.20.6",
     "drizzle-zod": "0.5.1",
-    "eslint-config-custom": "workspace:*",
-    "tsconfig": "workspace:*",
+    "@like-it-wear-it/eslint-config-custom": "workspace:*",
+    "@like-it-wear-it/tsconfig": "workspace:*",
     "tsx": "^3.12.7"
   }
 }

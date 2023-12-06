@@ -1,6 +1,6 @@
 import Image from "next/image"
 
-import { schema } from "database"
+import { schema } from "@like-it-wear-it/database"
 
 export function ProductCard({
   product: { name, description, price, images },

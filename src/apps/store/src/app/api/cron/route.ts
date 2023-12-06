@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server"
 
-import { cleanUpExpiredOrders } from "database/src/api/orders/mutations"
+import { cleanUpExpiredOrders } from "@like-it-wear-it/database/src/api/orders/mutations"
 
 export async function GET(req: Request) {
   const r = await cleanUpExpiredOrders()

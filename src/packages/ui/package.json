@@ -1,5 +1,5 @@
 {
-  "name": "ui",
+  "name": "@like-it-wear-it/ui",
   "version": "0.0.0",
   "main": "./index.tsx",
   "types": "./index.tsx",
@@ -9,8 +9,8 @@
     "add-component": "bash ./add-component.sh"
   },
   "devDependencies": {
-    "eslint-config-custom": "*",
-    "tsconfig": "*"
+    "@like-it-wear-it/eslint-config-custom": "workspace:*",
+    "@like-it-wear-it/tsconfig": "workspace:*"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.1.2",

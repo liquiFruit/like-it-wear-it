@@ -1,7 +1,7 @@
 import { AdapterUser } from "@auth/core/adapters"
 import { DrizzleAdapter } from "@auth/drizzle-adapter"
-import { and, db, eq } from "database"
-import { accounts, users } from "database/src/schema/auth"
+import { and, db, eq } from "@like-it-wear-it/database"
+import { accounts, users } from "@like-it-wear-it/database/src/schema/auth"
 import {
   DefaultSession,
   DefaultUser,

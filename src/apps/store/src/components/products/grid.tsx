@@ -1,6 +1,6 @@
 import Link from "next/link"
 
-import { schema } from "database"
+import { schema } from "@like-it-wear-it/database"
 
 import { ProductCard } from "@/components/products/card"
 

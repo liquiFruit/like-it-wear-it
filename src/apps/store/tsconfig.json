@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "extends": "tsconfig/nextjs.json",
+  "extends": "@like-it-wear-it/tsconfig/nextjs.json",
   "include": [
     "next-env.d.ts",
     "**/*.ts",

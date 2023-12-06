@@ -1,4 +1,4 @@
-import tailwindConfig from "ui/tailwind.config"
+import tailwindConfig from "@like-it-wear-it/ui/tailwind.config"
 
 import type { Config } from "tailwindcss"
 

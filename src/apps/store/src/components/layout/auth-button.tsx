@@ -1,8 +1,8 @@
 "use client"
 
+import { Button } from "@like-it-wear-it/ui/src/ui/button"
+import { cn } from "@like-it-wear-it/ui/src/utils"
 import { signIn, signOut, useSession } from "next-auth/react"
-import { Button } from "ui/src/ui/button"
-import { cn } from "ui/src/utils"
 
 export function AuthButton({ className }: { className?: string }) {
   const session = useSession()

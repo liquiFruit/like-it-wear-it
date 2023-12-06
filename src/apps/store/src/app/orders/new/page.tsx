@@ -5,13 +5,18 @@ import Link from "next/link"
 import { redirect } from "next/navigation"
 import { useState } from "react"
 
+import { Carousel, Slide } from "@like-it-wear-it/ui/src/components/carousel"
+import { LoadingSpinner } from "@like-it-wear-it/ui/src/icons"
+import { Button } from "@like-it-wear-it/ui/src/ui/button"
+import { Separator } from "@like-it-wear-it/ui/src/ui/separator"
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@like-it-wear-it/ui/src/ui/tabs"
+import { Textarea } from "@like-it-wear-it/ui/src/ui/textarea"
 import { useSession } from "next-auth/react"
-import { Carousel, Slide } from "ui/src/components/carousel"
-import { LoadingSpinner } from "ui/src/icons"
-import { Button } from "ui/src/ui/button"
-import { Separator } from "ui/src/ui/separator"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "ui/src/ui/tabs"
-import { Textarea } from "ui/src/ui/textarea"
 
 import { useCart } from "@/lib/hooks/useCart"
 import { trpc } from "@/lib/trpc/client"

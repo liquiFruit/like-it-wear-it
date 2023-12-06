@@ -1,18 +1,18 @@
-import { TRPCError } from "@trpc/server"
 import {
   addProductToCart,
   removeProductFromCart,
-} from "database/src/api/cart/mutations"
-import { getCartProductsByUserId } from "database/src/api/cart/queries"
+} from "@like-it-wear-it/database/src/api/cart/mutations"
+import { getCartProductsByUserId } from "@like-it-wear-it/database/src/api/cart/queries"
 import {
   cleanUpExpiredOrders,
   tryCreateOrder,
-} from "database/src/api/orders/mutations"
+} from "@like-it-wear-it/database/src/api/orders/mutations"
 import {
   getAllProductsInStock,
   getProductById,
-} from "database/src/api/products/queries"
-import { deliveryDetailsSchema } from "database/src/schema/orders"
+} from "@like-it-wear-it/database/src/api/products/queries"
+import { deliveryDetailsSchema } from "@like-it-wear-it/database/src/schema/orders"
+import { TRPCError } from "@trpc/server"
 import { z } from "zod"
 
 import { protectedProcedure, publicProcedure, router } from "@/server/trpc"

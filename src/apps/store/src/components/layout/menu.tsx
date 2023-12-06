@@ -1,5 +1,5 @@
-import { MenuIcon } from "ui/src/icons"
-import { Button } from "ui/src/ui/button"
+import { MenuIcon } from "@like-it-wear-it/ui/src/icons"
+import { Button } from "@like-it-wear-it/ui/src/ui/button"
 import {
   Sheet,
   SheetClose,
@@ -9,7 +9,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "ui/src/ui/sheet"
+} from "@like-it-wear-it/ui/src/ui/sheet"
 
 import { AuthButton } from "./auth-button"
 import { Logo } from "./logo"

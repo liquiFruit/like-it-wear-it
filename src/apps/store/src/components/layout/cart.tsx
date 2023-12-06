@@ -5,9 +5,13 @@ import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import { useState } from "react"
 
-import { CartProduct } from "database/src/schema/carts"
-import { Select as Product } from "database/src/schema/products"
-import { LoadingSpinner, RemoveIcon, ShoppingBagIcon } from "ui/src/icons"
+import { CartProduct } from "@like-it-wear-it/database/src/schema/carts"
+import { Select as Product } from "@like-it-wear-it/database/src/schema/products"
+import {
+  LoadingSpinner,
+  RemoveIcon,
+  ShoppingBagIcon,
+} from "@like-it-wear-it/ui/src/icons"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -17,16 +21,16 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "ui/src/ui/alert-dialog"
-import { Button } from "ui/src/ui/button"
+} from "@like-it-wear-it/ui/src/ui/alert-dialog"
+import { Button } from "@like-it-wear-it/ui/src/ui/button"
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "ui/src/ui/sheet"
-import { cn } from "ui/src/utils"
+} from "@like-it-wear-it/ui/src/ui/sheet"
+import { cn } from "@like-it-wear-it/ui/src/utils"
 
 import { useCart } from "@/lib/hooks/useCart"
 

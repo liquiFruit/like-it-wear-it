@@ -1,6 +1,6 @@
 "use client"
 
-import { Select as Product } from "database/src/schema/products"
+import { Select as Product } from "@like-it-wear-it/database/src/schema/products"
 
 import { trpc } from "@/lib/trpc/client"
 

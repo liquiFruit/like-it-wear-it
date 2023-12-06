@@ -1,5 +1,5 @@
 {
-  "name": "store",
+  "name": "@like-it-wear-it/store",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -14,12 +14,12 @@
     "@trpc/next": "next",
     "@trpc/react-query": "next",
     "@trpc/server": "next",
-    "database": "workspace:*",
+    "@like-it-wear-it/database": "workspace:*",
     "superjson": "^2.2.1",
-    "ui": "workspace:*"
+    "@like-it-wear-it/ui": "workspace:*"
   },
   "devDependencies": {
-    "eslint-config-custom": "workspace:*",
-    "tsconfig": "workspace:*"
+    "@like-it-wear-it/eslint-config-custom": "workspace:*",
+    "@like-it-wear-it/tsconfig": "workspace:*"
   }
 }

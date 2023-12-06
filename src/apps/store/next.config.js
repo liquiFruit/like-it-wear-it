@@ -3,7 +3,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  transpilePackages: ["ui", "database"],
+  transpilePackages: ["@like-it-wear-it/ui", "@like-it-wear-it/database"],
 
   // FIXME: use image host instead
   images: {

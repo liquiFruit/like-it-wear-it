@@ -1,5 +1,5 @@
 {
-  "extends": "tsconfig/nextjs.json",
+  "extends": "@like-it-wear-it/tsconfig/nextjs.json",
   "include": ["."],
   "exclude": ["node_modules"]
 }

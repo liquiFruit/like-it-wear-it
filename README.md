@@ -8,9 +8,9 @@ This Turborepo includes the following packages/apps:
 
 ### Apps and Packages
 
-- `ui`: a stub React component library shared by both `web` and `docs` applications
-- `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `tsconfig`: `tsconfig.json`s used throughout the monorepo
+- `@like-it-wear-it/ui`: a stub React component library shared by both `web` and `docs` applications
+- `@like-it-wear-it/eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
+- `@like-it-wear-it/tsconfig`: `tsconfig.json`s used throughout the monorepo
 
 ### Utilities
 

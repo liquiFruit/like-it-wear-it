@@ -1,6 +1,6 @@
 import Image from "next/image"
 
-import { Carousel, Slide } from "ui/src/components/carousel"
+import { Carousel, Slide } from "@like-it-wear-it/ui/src/components/carousel"
 
 import { serverClient } from "@/lib/trpc/server-client"
 

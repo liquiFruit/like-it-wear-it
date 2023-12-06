@@ -1,7 +1,7 @@
 "use client"
 
-import { Select as Product } from "database/src/schema/products"
-import { Button } from "ui/src/ui/button"
+import { Select as Product } from "@like-it-wear-it/database/src/schema/products"
+import { Button } from "@like-it-wear-it/ui/src/ui/button"
 
 import { useCart } from "@/lib/hooks/useCart"
 

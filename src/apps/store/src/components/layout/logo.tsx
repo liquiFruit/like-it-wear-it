@@ -1,6 +1,6 @@
 import Link from "next/link"
 
-import { cn } from "ui/src/utils"
+import { cn } from "@like-it-wear-it/ui/src/utils"
 
 export function Logo({ className }: { className: string }) {
   return (
