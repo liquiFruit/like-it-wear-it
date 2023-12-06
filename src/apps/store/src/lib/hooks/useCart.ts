@@ -6,7 +6,16 @@ import { trpc } from "@/lib/trpc/client"
 
 export function useCart() {
   const { data, isLoading, isError, error, refetch } =
-    trpc.getCartProductsByUserId.useQuery()
+    trpc.getCartProductsByUserId.useQuery(undefined, {
+      retry(failureCount, error) {
+        if (error.data?.code === "UNAUTHORIZED") {
+          console.log("Failed to fetch cart: UNAUTHORIZED")
+          return false
+        }
+
+        return true
+      },
+    })
 
   const { mutateAsync: tryAddToCart } = trpc.addProductToCart.useMutation()
   const { mutateAsync: tryRemoveFromCart } =
