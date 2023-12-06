@@ -1,7 +1,7 @@
 import { createClient } from "@libsql/client"
+import { DATABASE_AUTH_TOKEN, DATABASE_URL } from "@like-it-wear-it/env"
 import { drizzle } from "drizzle-orm/libsql"
 
-import { DATABASE_AUTH_TOKEN, DATABASE_URL } from "./env"
 import { categories } from "./schema/categories"
 import { productsCategories } from "./schema/product-category"
 import { products } from "./schema/products"

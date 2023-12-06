@@ -1,6 +1,5 @@
+import { DATABASE_AUTH_TOKEN, DATABASE_URL } from "@like-it-wear-it/env"
 import type { Config } from "drizzle-kit"
-
-import { DATABASE_AUTH_TOKEN, DATABASE_URL } from "./src/env"
 
 export default {
   schema: "./src/schema/*",

@@ -9,6 +9,7 @@
     "studio": "drizzle-kit studio"
   },
   "dependencies": {
+    "@like-it-wear-it/env": "workspace:*",
     "@libsql/client": "^0.3.0",
     "drizzle-orm": "0.29.1",
     "sqlite3": "^5.1.6",
@@ -16,12 +17,12 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
+    "@like-it-wear-it/eslint-config-custom": "workspace:*",
+    "@like-it-wear-it/tsconfig": "workspace:*",
     "@types/node": "^18.15.11",
     "dotenv": "^16.3.1",
     "drizzle-kit": "0.20.6",
     "drizzle-zod": "0.5.1",
-    "@like-it-wear-it/eslint-config-custom": "workspace:*",
-    "@like-it-wear-it/tsconfig": "workspace:*",
     "tsx": "^3.12.7"
   }
 }
